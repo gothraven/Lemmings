@@ -1,32 +1,32 @@
 package main.module.game.player;
 
 public class Player {
-    private String name;
-    private int score;
+	private String name;
+	private int score;
 
-    public Player(String name){
-        this.name = name;
-        this.score = 0;
-    }
+	public Player (String name) {
+		this.name = name;
+		this.score = 0;
+	}
 
-    public Player(String name, int score){
-        this.name = name;
-        this.score = score;
-    }
+	public Player (String name, int score) {
+		this.name = name;
+		this.score = score;
+	}
 
-    public String getName () {
-        return name;
-    }
+	public String getName () {
+		return name;
+	}
 
-    public void setName (String name) {
-        this.name = name;
-    }
+	public void setName (String name) {
+		this.name = name;
+	}
 
-    public int getScore () {
-        return score;
-    }
+	public int getScore () {
+		return score;
+	}
 
-    public void setScore (int score) {
-        this.score = score;
-    }
+	public void setScore (int score) {
+		this.score = score;
+	}
 }
