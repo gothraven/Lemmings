@@ -5,10 +5,8 @@ import main.module.game.halloffame.HallOfFame;
 import main.module.game.level.Level;
 import main.module.game.player.Player;
 
-import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Queue;
-import java.util.Stack;
 
 public class Game {
 	private Player player;
@@ -18,8 +16,8 @@ public class Game {
 	private boolean on;
 
 	public Game (String playerName) {
-		this.player = new Player(playerName);
 		this.hallOfFame = new HallOfFame();
+		this.player = new Player(playerName);
 		this.loadLevelNames();
 		this.level = new Level(levels.poll());
 		this.on = true;
@@ -29,7 +27,7 @@ public class Game {
 		//TODO load level names from the directory level/
 	}
 
-	public void nextLevel(){
+	public void nextLevel() {
 		if (! levels.isEmpty())
 			this.level = new Level(levels.poll());
 		else
