@@ -11,7 +11,7 @@ public class Position {
 	}
 
 	public Position(Position pos) {
-		new Position(pos.x, pos.y);
+		this(pos.x, pos.y);
 	}
 
 	@Override

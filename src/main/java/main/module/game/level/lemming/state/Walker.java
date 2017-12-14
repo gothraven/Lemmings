@@ -5,6 +5,7 @@ import main.module.game.level.lemming.Lemming;
 public class Walker implements Power {
 
 	private Lemming lemming;
+	private Power prevPower;
 
 	public void action (Lemming lem) {
 		// implement this functions
