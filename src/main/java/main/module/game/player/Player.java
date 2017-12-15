@@ -5,7 +5,7 @@ public class Player {
 	private int score;
 
 	public Player (String name) {
-		new Player(name, 0);
+		this(name, 0);
 	}
 
 	public Player (String name, int score) {
