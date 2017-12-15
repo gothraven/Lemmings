@@ -2,14 +2,14 @@ package main.module.game.level.lemming;
 
 import main.geometry.Direction;
 import main.geometry.Position;
-import main.module.game.level.lemming.state.Power;
-import main.module.game.level.lemming.state.Walker;
+import main.module.game.level.lemming.power.PowerRules;
+import main.module.game.level.lemming.state.State;
 
 public class Lemming {
 
 	private Position pos;
 	private Direction dir;
-	private Power power;
+	private PowerRules powerRules;
 	private boolean alive;
 	private boolean saved;
 
@@ -18,19 +18,23 @@ public class Lemming {
 	}
 
 	public Lemming (Position pos, Direction dir) {
-		this(pos, dir, new Walker());
+		this(pos, dir, State.WALKER);
 	}
 
-	public Lemming (Position pos, Direction dir, Power power) {
+	public Lemming (Position pos, Direction dir, PowerRules powerRules) {
 		this.pos = new Position(pos);
 		this.dir = dir;
-		this.power = power;
+		this.powerRules = powerRules;
 		this.alive = true;
 		this.saved = false;
 	}
 
 	public void move () {
-		this.power.action(this);
+		this.powerRules.action(this);
+	}
+
+	public void changePower (State state) {
+		//TODO implement the change
 	}
 
 	public boolean isAlive () {
@@ -57,9 +61,8 @@ public class Lemming {
 		return pos;
 	}
 
-	public Power getPower () {
-		return power;
+	public PowerRules getPowerRules () {
+		return powerRules;
 	}
-
 
 }
