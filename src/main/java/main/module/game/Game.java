@@ -86,10 +86,6 @@ public class Game implements Observable {
 		return player;
 	}
 
-	public LinkedList<InputStreamReader> getLevels () {
-		return levels;
-	}
-
 }
 
 
