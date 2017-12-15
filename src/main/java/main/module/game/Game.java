@@ -9,8 +9,7 @@ import main.util.observebale.Observable;
 import main.util.observer.Observer;
 
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Queue;
+import java.util.ArrayList;import java.util.Queue;
 
 public class Game implements Observable {
 
