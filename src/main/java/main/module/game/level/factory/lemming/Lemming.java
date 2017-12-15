@@ -1,5 +1,6 @@
 package main.module.game.level.factory.lemming;
 
+import main.module.game.level.factory.map.Map;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
 import main.module.game.level.factory.lemming.power.PowerRules;
@@ -9,7 +10,7 @@ public class Lemming {
 
 	private Position pos;
 	private Direction dir;
-	private PowerRules powerRules;
+	private State power;
 	private boolean alive;
 	private boolean saved;
 
@@ -21,16 +22,16 @@ public class Lemming {
 		this(pos, dir, State.WALKER);
 	}
 
-	public Lemming (Position pos, Direction dir, PowerRules powerRules) {
+	public Lemming (Position pos, Direction dir, State power) {
 		this.pos = new Position(pos);
 		this.dir = dir;
-		this.powerRules = powerRules;
+		this.power = power;
 		this.alive = true;
 		this.saved = false;
 	}
 
-	public void move () {
-		this.powerRules.action(this);
+	public void move (Map map) {
+		this.power.action(this, map);
 	}
 
 	public void changePower (State state) {
@@ -61,8 +62,8 @@ public class Lemming {
 		return pos;
 	}
 
-	public PowerRules getPowerRules () {
-		return powerRules;
+	public PowerRules getPower() {
+		return power;
 	}
 
 }
