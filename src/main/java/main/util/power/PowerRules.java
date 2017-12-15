@@ -1,4 +1,4 @@
-package main.module.game.level.factory.lemming.power;
+package main.util.power;
 
 
 import main.module.game.level.factory.lemming.Lemming;

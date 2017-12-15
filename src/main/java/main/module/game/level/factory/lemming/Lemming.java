@@ -3,7 +3,7 @@ package main.module.game.level.factory.lemming;
 import main.module.game.level.factory.map.Map;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
-import main.module.game.level.factory.lemming.power.PowerRules;
+import main.util.power.PowerRules;
 import main.module.game.level.factory.lemming.state.State;
 
 public class Lemming {

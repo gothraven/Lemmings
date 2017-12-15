@@ -1,7 +1,7 @@
 package main.module.game.level.factory.map;
 
 import main.module.game.level.factory.lemming.Lemming;
-import main.module.game.level.factory.lemming.power.PowerRules;
+import main.util.power.PowerRules;
 
 public enum TileAction implements PowerRules {
 	TELEPORT{

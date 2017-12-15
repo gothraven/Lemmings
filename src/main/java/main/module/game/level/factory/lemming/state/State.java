@@ -1,7 +1,7 @@
 package main.module.game.level.factory.lemming.state;
 
 import main.module.game.level.factory.lemming.Lemming;
-import main.module.game.level.factory.lemming.power.PowerRules;
+import main.util.power.PowerRules;
 import main.module.game.level.factory.map.Map;
 
 public enum State implements PowerRules {
