@@ -20,6 +20,7 @@ public class HallOfFame {
 			this.database.push(player);
 
 			try {
+				//TODO work on adding the new high score into the file
 				String newHighScore = player.getName() + "	" + player.getScore();
 				FileWriter fileWriter = new FileWriter(ClassLoader.getSystemResource(PATH).toString(), true);
 				//fileWriter.write(newHighScore);
