@@ -1,9 +1,9 @@
-package main.module.game.level.lemming;
+package main.module.game.level.factory.lemming;
 
-import main.geometry.Direction;
-import main.geometry.Position;
-import main.module.game.level.lemming.power.PowerRules;
-import main.module.game.level.lemming.state.State;
+import main.util.geometry.Direction;
+import main.util.geometry.Position;
+import main.module.game.level.factory.lemming.power.PowerRules;
+import main.module.game.level.factory.lemming.state.State;
 
 public class Lemming {
 

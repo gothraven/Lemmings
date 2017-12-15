@@ -1,4 +1,4 @@
-package main.geometry;
+package main.util.geometry;
 
 public class Position {
 
