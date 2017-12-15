@@ -19,41 +19,31 @@ public enum State implements PowerRules {
 	},
 	BLOCKER {
 		public void action (Lemming lem, Map map) {
-			//TODO implement the bomber
-
 			System.out.println("im blocking");
 		}
 	},
 	BUILDER {
 		public void action (Lemming lem, Map map) {
-			//TODO implement the bomber
 			System.out.println("im building");
 		}
 	},
 	CLIMBER {
 		public void action (Lemming lem, Map map) {
-			//TODO implement the bomber
 			System.out.println("im climbing");
 		}
 	},
 	DIGGER {
 		public void action (Lemming lem, Map map) {
-			//TODO implement the bomber
-
 			System.out.println("im digging");
 		}
 	},
 	MINER {
 		public void action (Lemming lem, Map map) {
-			//TODO implement the bomber
-
 			System.out.println("im minning");
 		}
 	},
 	PARATROOPER {
 		public void action (Lemming lem, Map map) {
-			//TODO implement the bomber
-
 			System.out.println("im flying");
 		}
 	}
