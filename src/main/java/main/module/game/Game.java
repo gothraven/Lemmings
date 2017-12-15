@@ -3,6 +3,7 @@ package main.module.game;
 
 import main.module.game.halloffame.HallOfFame;
 import main.module.game.level.Level;
+import main.module.game.levelfactory.LevelFactory;
 import main.module.game.player.Player;
 import main.util.event.Event;
 import main.util.observebale.Observable;
@@ -31,7 +32,7 @@ public class Game implements Observable {
 		this.levels = new LinkedList<InputStreamReader>();
 		this.loadLevelNames();
 		this.gameObservers = new ArrayList<Observer>();
-		this.level = new Level(levels.poll());
+		this.level = LevelFactory.createLevel(this, levels.poll());
 		this.on = true;
 	}
 
@@ -64,8 +65,9 @@ public class Game implements Observable {
 	}
 
 	public void nextLevel() {
-		if (! levels.isEmpty())
-			this.level = new Level(levels.poll());
+		if (! levels.isEmpty()) {
+			this.level = LevelFactory.createLevel(this, levels.poll());
+		}
 		else
 			this.on = false;
 	}

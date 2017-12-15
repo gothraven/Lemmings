@@ -39,6 +39,7 @@ public class HallOfFame {
 	}
 
 	private void loadDataBase (BufferedReader bufferedReader) {
+		//TODO needs to be implemented
 		/*try {
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
