@@ -74,12 +74,32 @@ public enum 	State implements PowerRules {
 	},
 	DIGGER {
 		public void action (Lemming lem, Map map) {
-			System.out.println("im digging");
+
+			Tile TDown = map.getTileInThisDirection(lem.getPos(), Direction.DOWN);
+			if(TDown.getType().isDestructible()){
+
+			}else{
+				State.WALKER.action(lem,map);
+			}
+			if (countDigger == 6) {
+				lem.changePower(State.WALKER);
+				countDigger = 0;
+			}
 		}
 	},
 	MINER {
 		public void action (Lemming lem, Map map) {
-			System.out.println("im minning");
+			if(shouldMove(lem , map) || shouldFall(lem.getPos(),map)){
+				State.WALKER.action(lem,map);
+			}else{
+				Tile tDirection = map.getTileInThisDirection(lem.getPos(), lem.getDir());
+				if(tDirection.getType().isDestructible()){
+					map.removeTile(new Position(lem.getPos().getX()+lem.getDir().getXdir(),lem.getPos().getY()+lem.getDir().getYdir()));
+				}else {
+					lem.oppositDirection();
+					lem.changePower(State.WALKER);
+				}
+			}
 		}
 	},
 	PARATROOPER {
@@ -117,6 +137,7 @@ public enum 	State implements PowerRules {
 
 
 	boolean isFlying = false;
+	int countDigger = 0;
 
 
 
