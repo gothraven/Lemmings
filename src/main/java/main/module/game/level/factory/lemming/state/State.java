@@ -76,7 +76,7 @@ public enum 	State implements PowerRules {
 
 			Tile TDown = map.getTileInThisDirection(lem.getPos(), Direction.DOWN);
 			if(TDown.getType().isDestructible()){
-
+				//TODO don't forget
 			}else{
 				State.WALKER.action(lem,map,lems);
 			}

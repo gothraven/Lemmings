@@ -33,8 +33,9 @@ public enum TileAction implements PowerRules {
 				map.addTile(Direction.DOWN.WhatIsNextPosition(map.getExitPos()),TileType.BOX);
 				map.addTile(Direction.RIGHT.WhatIsNextPosition(map.getExitPos()),TileType.BOX);
 				map.addTile(Direction.LEFT.WhatIsNextPosition(map.getExitPos()),TileType.BOX);
-			} catch (TileAlreadyExistsException e) { }
-
+			} catch (TileAlreadyExistsException e) {
+				e.printStackTrace();
+			}
 		}
 	},
 	EXIT {
@@ -48,7 +49,7 @@ public enum TileAction implements PowerRules {
 		@Override
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			int x = lem.getPos().getX(), y = lem.getPos().getY();
-			ArrayList<Position> positions = new ArrayList<Position>();
+			ArrayList<Position> positions = new ArrayList<>();
 			positions.add(new Position(x - 1, y - 1));
 			positions.add(new Position(x, y - 1));
 			positions.add(new Position(x + 1, y - 1));

@@ -19,7 +19,7 @@ public class Map {
 	private Position exitPos;
 
 	public Map () {
-		this.map = new HashMap<Position, Tile>();
+		this.map = new HashMap<>();
 	}
 
 	public Map (File file) throws InvalideFileException {
@@ -31,7 +31,7 @@ public class Map {
 			while ((line = buff.readLine()) != null) {
 				if (line.startsWith("map")) {
 					isMap = true;
-					this.map = new HashMap<Position, Tile>();
+					this.map = new HashMap<>();
 					this.enterPos = null;
 					this.exitPos = null;
 				} else if (isMap) {
@@ -174,11 +174,11 @@ public class Map {
 	}
 
 	public String toString() {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		Set<Position> positions = this.map.keySet();
 		for (Position position : positions) {
-			result += position.toString() + " " + this.map.get(position).toString() +"\n";
+			result.append(position.toString() + " " + this.map.get(position).toString() +"\n");
 		}
-		return result;
+		return result.toString();
 	}
 }

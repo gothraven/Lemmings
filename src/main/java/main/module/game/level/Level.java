@@ -37,9 +37,9 @@ public class Level implements Observable {
 	public Level (Game game, File levelFIle) throws InvalideFileException {
 		this.game = game;
 		this.map = MapFactory.createMap(levelFIle);
-		this.levelObservers = new ArrayList<Observer>();
+		this.levelObservers = new ArrayList<>();
 		this.info = new LevelInfo(levelFIle);
-		this.lemmings = new ArrayList<Lemming>();
+		this.lemmings = new ArrayList<>();
 		this.time = new Timer(LevelInfo.SPEED_SCALE, new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				LevelInfo info = Level.this.info;
@@ -87,7 +87,7 @@ public class Level implements Observable {
 					}
 				}
 				for (Iterator<Lemming> it = this.lemmings.iterator(); it.hasNext();) {
-					Lemming lemming = (Lemming) it.next();
+					Lemming lemming = it.next();
 					if (!lemming.isAlive()) {
 						this.info.setNbLemDead(this.info.getNbLemDead() + 1);
 						this.info.setNbLemInGame(this.info.getNbLemInGame() - 1 );
