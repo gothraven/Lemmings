@@ -4,6 +4,8 @@ import main.module.event.factory.level.LevelEvent;
 import main.module.game.level.Level;
 import main.module.game.level.factory.lemming.Lemming;
 import main.module.game.level.factory.map.Map;
+import main.util.event.Event;
+import main.util.observer.Observer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class GamePanel extends JComponent {
+public class GamePanel extends JComponent implements Observer{
 
 
 	public static int WIDTH, HEIGHT;
@@ -107,6 +109,12 @@ public class GamePanel extends JComponent {
 		}
 
 		repaint();
+	}
+
+	public void update (Event e) {
+		//TODO work on this later
+		if (e.getClass() == LevelEvent.class)
+			update((LevelEvent)e);
 	}
 	/*public void showHelp() {
 		String message = "Controle keys are the following: \n\n"

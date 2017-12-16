@@ -10,7 +10,6 @@ import main.util.observebale.Observable;
 import main.util.observer.Observer;
 
 import java.io.File;
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,16 +22,16 @@ public class Game implements Observable {
 	private Player player;
 	private HallOfFame hallOfFame;
 	private Level level;
-	private LinkedList<InputStreamReader> levels;
+	private LinkedList<File> levels;
 	private boolean on;
 
 	public Game (String playerName) {
 		this.hallOfFame = new HallOfFame();
 		this.player = new Player(playerName);
-		this.levels = new LinkedList<InputStreamReader>();
+		this.levels = new LinkedList<File>();
 		this.loadLevelNames();
 		this.gameObservers = new ArrayList<Observer>();
-		this.level = LevelFactory.createLevel(this, levels.poll());
+		this.level = LevelFactory.createLevel(this, levels.removeFirst());
 		this.on = true;
 	}
 
@@ -45,7 +44,7 @@ public class Game implements Observable {
 		}
 		File[] levelFiles = dir.listFiles();
 		for(File file: levelFiles)
-			levels.add(new InputStreamReader(ClassLoader.getSystemResourceAsStream(LEVELS_DIR+file.getName())));
+			levels.add(file);
 	}
 
 	public void registerObserver (Observer gameObserver) {

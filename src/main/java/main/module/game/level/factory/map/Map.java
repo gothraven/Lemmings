@@ -6,6 +6,8 @@ import main.util.geometry.Direction;
 import main.util.geometry.Position;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Set;
@@ -17,9 +19,9 @@ public class Map {
 	private Position enterPos;
 	private Position exitPos;
 
-	public Map (InputStreamReader isr) throws InvalideFileException {
+	public Map (File file) throws InvalideFileException {
 		try {
-			BufferedReader buff = new BufferedReader(isr);
+			BufferedReader buff = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			String line;
 			boolean isMap = false;
 			int y = 0;

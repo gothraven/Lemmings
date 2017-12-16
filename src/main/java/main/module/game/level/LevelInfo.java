@@ -4,6 +4,8 @@ import main.module.game.level.factory.lemming.powertype.PowerType;
 import main.util.exceptions.InvalideFileException;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,7 +25,7 @@ public class LevelInfo {
 
 	private Map<PowerType, Integer> powerUps;
 
-	public LevelInfo(InputStreamReader isr) throws InvalideFileException
+	public LevelInfo(File file) throws InvalideFileException
 	{
 		this.powerUps = new TreeMap<PowerType, Integer>();
 		this.enPause = false;
@@ -37,13 +39,15 @@ public class LevelInfo {
 		this.timeToSave = 0;
 		this.limShowSpeed = LEM_SHOW_SPEED_MIN;
 		this.gameSpeed = GAME_SPEED_MIN;
-		this.load_info(isr);
+		this.load_info(file);
 	}
 
-	private void load_info(InputStreamReader isr) throws InvalideFileException
+	private void load_info(File file) throws InvalideFileException
 	{
 		try {
-			BufferedReader buff = new BufferedReader(isr);
+			BufferedReader buff = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			if (buff == null)
+				System.out.println("winou mechkoul");
 			String line = buff.readLine();
 			while (((line != null) && !line.startsWith("map"))) {
 				String[] lineParts = line.split("\\t| ");

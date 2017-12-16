@@ -8,10 +8,10 @@ public class GameControler {
 	private Game game;
 	private GameFrame window;
 
-	public GameControler(String fname)
+	public GameControler(String player)
 	{
-		game = new Game(fname);
-		//window = new GameFrame(game);
+		game = new Game(player);
+		window = new GameFrame(game);
 		//game.getLevel().setGameView(window.getGameView());
 		//window.showHelp();
 		while (game.isOn())

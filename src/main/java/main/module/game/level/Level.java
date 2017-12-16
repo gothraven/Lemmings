@@ -16,7 +16,7 @@ import main.util.observer.Observer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.InputStreamReader;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -29,12 +29,12 @@ public class Level implements Observable {
 	private Timer time;
 	private int lemShowSpeedCt, gameSpeedCt, lemShowCt;
 
-	public Level (InputStreamReader levelFile) throws InvalideFileException
+	public Level (File levelFile) throws InvalideFileException
 	{
 		this(null, levelFile);
 	}
 
-	public Level (Game game, InputStreamReader levelFIle) throws InvalideFileException {
+	public Level (Game game, File levelFIle) throws InvalideFileException {
 		this.game = game;
 		this.map = MapFactory.createMap(levelFIle);
 		this.levelObservers = new ArrayList<Observer>();

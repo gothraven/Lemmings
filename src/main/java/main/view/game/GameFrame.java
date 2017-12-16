@@ -1,11 +1,14 @@
 package main.view.game;
 
+import main.module.event.factory.game.GameEvent;
 import main.module.game.Game;
+import main.util.event.Event;
+import main.util.observer.Observer;
 import main.view.level.GamePanel;
 
 import javax.swing.*;
 
-public class GameFrame {
+public class GameFrame implements Observer {
 	private JFrame window;
 	private GamePanel gameView;
 	private Game game;
@@ -45,5 +48,14 @@ public class GameFrame {
 
 	public void showHelp() {
 		//gameView.showHelp();
+	}
+
+	public void update (GameEvent e) {
+
+	}
+
+	public void update (Event e) {
+		if (e.getClass() == GameEvent.class)
+			update((GameEvent)e);
 	}
 }

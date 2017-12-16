@@ -4,13 +4,14 @@ import main.module.game.Game;
 import main.module.game.level.Level;
 import main.util.exceptions.InvalideFileException;
 
-import java.io.InputStreamReader;
+import java.io.File;
 
 public class LevelFactory {
-	public static Level createLevel(Game game, InputStreamReader isr) {
+	public static Level createLevel(Game game, File file) {
 		try {
-			return new Level(game, isr);
+			return new Level(game, file);
 		} catch (InvalideFileException e) {
+			System.out.println("lazem nelgaw hal hna");
 			e.printStackTrace();
 		}
 		return null;
