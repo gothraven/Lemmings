@@ -6,6 +6,8 @@ import main.util.geometry.Position;
 import main.util.power.PowerRules;
 import main.module.game.level.factory.lemming.state.State;
 
+import java.util.ArrayList;
+
 public class Lemming {
 	public static int MAX_HEIGHT = 5;
 	private Position pos;
@@ -31,8 +33,8 @@ public class Lemming {
 		this.saved = false;
 	}
 
-	public void move (Map map) {
-		this.power.action(this, map);
+	public void move (Map map, ArrayList<Lemming> lems) {
+		this.power.action(this, map, lems);
 	}
 
 	public void changePower (State state) {
@@ -96,4 +98,7 @@ public class Lemming {
 	public void fallingCounter(){ this.fallingCounter++; }
 	public int getFallingCounter(){ return  this.fallingCounter; }
 
+	public void setPos (Position pos) {
+		this.pos = pos;
+	}
 }

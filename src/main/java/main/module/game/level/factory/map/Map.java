@@ -15,9 +15,12 @@ import java.util.Set;
 public class Map {
 
 	private HashMap<Position, Tile> map;
-
 	private Position enterPos;
 	private Position exitPos;
+
+	public Map () {
+		this.map = new HashMap<Position, Tile>();
+	}
 
 	public Map (File file) throws InvalideFileException {
 		try {
@@ -59,7 +62,7 @@ public class Map {
 							case '#': //LAVA
 								this.map.put(new Position(x, y), new Tile(TileType.LAVA));
 								break;
-							case '%': //TELEPORT_Enter
+							case '%': //TELEPORT
 								this.map.put(new Position(x, y), new Tile(TileType.TELEPORT));
 								break;
 							case 'B': //BOMB
@@ -158,12 +161,23 @@ public class Map {
 		return map;
 	}
 
+	public void setEnterPos (Position enterPos) {
+		this.enterPos = enterPos;
+	}
+
+	public void setExitPos (Position exitPos) {
+		this.exitPos = exitPos;
+	}
+
+	public void setMap (HashMap<Position, Tile> map) {
+		this.map = map;
+	}
+
 	public String toString() {
 		String result = "";
 		Set<Position> positions = this.map.keySet();
 		for (Position position : positions) {
-			if (position.getY() == 4)
-				result += position.toString() + " " + this.map.get(position).toString() +"\n";
+			result += position.toString() + " " + this.map.get(position).toString() +"\n";
 		}
 		return result;
 	}

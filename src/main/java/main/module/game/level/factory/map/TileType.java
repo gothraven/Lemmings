@@ -12,7 +12,7 @@ public enum TileType {
 		this.action = action;
 		this.destructible = destructible;
 	}
-
+	
 	public TileAction getAction() {
 		return action;
 	}
