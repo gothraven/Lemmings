@@ -55,6 +55,10 @@ public class Lemming {
 		this.saved = true;
 	}
 
+	public boolean inGame() {
+		return (isAlive() && !isSaved());
+	}
+
 	public Direction getDir () {
 		return dir;
 	}

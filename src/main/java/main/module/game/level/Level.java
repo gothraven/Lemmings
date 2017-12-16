@@ -96,7 +96,7 @@ public class Level implements Observable {
 						this.info.setNbLemSaved(this.info.getNbLemSaved() + 1);
 						this.info.setNbLemInGame(this.info.getNbLemInGame() - 1);
 						it.remove();
-					} else if (lemming.isAlive() && !lemming.isSaved()) { //TODO in lemming.ingame
+					} else if (lemming.inGame()) {
 						lemming.move(map);
 					}
 				}
@@ -106,7 +106,7 @@ public class Level implements Observable {
 						this.info.setWon(true);
 					else
 						this.info.setWon(false);
-					//TODO this.game.end();
+					this.game.end();
 				}
 
 				this.gameSpeedCt = 0;

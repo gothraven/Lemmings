@@ -88,6 +88,9 @@ public class Game implements Observable {
 		return player;
 	}
 
+	public void end () {
+		this.on = false;
+	}
 }
 
 
