@@ -7,12 +7,13 @@ import main.util.power.PowerRules;
 import main.module.game.level.factory.lemming.state.State;
 
 public class Lemming {
-
+	public static int MAX_HEIGHT = 5;
 	private Position pos;
 	private Direction dir;
 	private State power;
 	private boolean alive;
 	private boolean saved;
+	private int fallingCounter;
 
 	public Lemming (Position pos) {
 		this(pos, Direction.RIGHT);
@@ -65,5 +66,26 @@ public class Lemming {
 	public PowerRules getPower() {
 		return power;
 	}
+
+	public void fall(){
+		pos.setX(pos.getX()+Direction.DOWN.getXdir());
+		pos.setY(pos.getY()+Direction.DOWN.getYdir());
+
+	}
+	public void move() {
+		pos.setX(pos.getX() + dir.getXdir());
+		pos.setY(pos.getY() + dir.getYdir());
+	}
+	public void jump(){
+		Direction next = getDir().upper();
+		pos.setX(pos.getX() + next.getXdir());
+		pos.setY(pos.getY() + next.getYdir());
+	}
+	public void oppositDirection(){
+		dir = dir.oppositDirection(dir);
+	}
+	public void restFallingCounter(){ this.fallingCounter = 0; }
+	public void fallingCounter(){ this.fallingCounter++; }
+	public int getFallingCounter(){ return  this.fallingCounter; }
 
 }

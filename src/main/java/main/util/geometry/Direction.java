@@ -24,4 +24,30 @@ public enum Direction {
 		return new Position(pos.getX() + xdir, pos.getY() + ydir);
 	}
 
+	public Direction upper() {
+		if (this.equals(Direction.RIGHT))
+			return Direction.UPPERRIGHT;
+		if (this.equals(Direction.LEFT))
+			return Direction.UPPERLEFT;
+		else
+			return null;
+	}
+	public Direction oppositDirection(Direction dir) {
+		if (dir.equals(RIGHT))
+			return Direction.LEFT;
+		else if (dir.equals(LEFT))
+			return Direction.RIGHT;
+		else if (dir.equals(UP))
+			return Direction.DOWN;
+		else if (dir.equals(DOWN))
+			return Direction.UP;
+		else if (dir.equals(UPPERLEFT))
+			return Direction.DOWNERRIGHT;
+		else if (dir.equals(DOWNERLEFT))
+			return Direction.UPPERRIGHT;
+		else if (dir.equals(UPPERRIGHT))
+			return Direction.DOWNERLEFT;
+		else
+			return Direction.UPPERLEFT;
+	}
 }
