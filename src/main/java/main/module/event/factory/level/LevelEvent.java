@@ -12,11 +12,7 @@ public class LevelEvent implements Event {
 	private Map map;
 	private LevelInfo levelInfo;
 	private ArrayList<Lemming> lemmings;
-
-	public LevelEvent(Map map) {
-		this(null, null, map);
-	}
-
+	
 	public LevelEvent(LevelInfo levelInfo, ArrayList<Lemming> lemmings, Map map) {
 		this.levelInfo = levelInfo;
 		this.lemmings = lemmings;
