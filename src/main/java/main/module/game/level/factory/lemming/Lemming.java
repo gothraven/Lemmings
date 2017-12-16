@@ -72,9 +72,13 @@ public class Lemming {
 		pos.setY(pos.getY()+Direction.DOWN.getYdir());
 
 	}
-	public void move() {
+	public void walke() {
 		pos.setX(pos.getX() + dir.getXdir());
 		pos.setY(pos.getY() + dir.getYdir());
+	}
+	public void moveUp() {
+		pos.setX(pos.getX() + Direction.UP.getXdir());
+		pos.setY(pos.getY() + Direction.UP.getYdir());
 	}
 	public void jump(){
 		Direction next = getDir().upper();
