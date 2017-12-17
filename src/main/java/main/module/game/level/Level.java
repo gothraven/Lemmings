@@ -26,7 +26,7 @@ public class Level implements Observable {
 	private LevelInfo info;
 	private ArrayList<Lemming> lemmings;
 	private Map map;
-	private Timer time;
+	private Timer timer;
 	private int lemShowSpeedCt, gameSpeedCt, lemShowCt;
 
 	public Level (File levelFile) throws InvalideFileException
@@ -40,7 +40,7 @@ public class Level implements Observable {
 		this.levelObservers = new ArrayList<>();
 		this.info = new LevelInfo(levelFIle);
 		this.lemmings = new ArrayList<>();
-		this.time = new Timer(LevelInfo.SPEED_SCALE, new ActionListener() {
+		this.timer = new Timer(LevelInfo.SPEED_SCALE, new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				LevelInfo info = Level.this.info;
 				if (info.getGameTime() > 0) {
@@ -61,14 +61,14 @@ public class Level implements Observable {
 	public void update () {
 		if (this.info.isEnPause()) {
 
-			if (this.time.isRunning()) {
-				this.time.stop();
+			if (this.timer.isRunning()) {
+				this.timer.stop();
 				LevelEvent event = EventFactory.createEvent(info, lemmings, map);
 				notifyObeservers(event);
 			}
 		} else {
-			if (!this.time.isRunning()) {
-				this.time.start();
+			if (!this.timer.isRunning()) {
+				this.timer.start();
 			}
 			if (this.gameSpeedCt < (LevelInfo.SPEED_SCALE / this.info.getGameSpeed())) {
 				this.gameSpeedCt++;
@@ -131,4 +131,31 @@ public class Level implements Observable {
 			o.update(levelEvent);
 	}
 
+	public ArrayList<Lemming> getLemmings () {
+		return lemmings;
+	}
+
+	public int getGameSpeedCt () {
+		return gameSpeedCt;
+	}
+
+	public int getLemShowCt () {
+		return lemShowCt;
+	}
+
+	public int getLemShowSpeedCt () {
+		return lemShowSpeedCt;
+	}
+
+	public LevelInfo getInfo () {
+		return info;
+	}
+
+	public Map getMap () {
+		return map;
+	}
+
+	public Timer getTimer () {
+		return timer;
+	}
 }
