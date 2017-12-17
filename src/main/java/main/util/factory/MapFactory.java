@@ -1,8 +1,8 @@
-package main.module.game.level.factory;
+package main.util.factory;
 
-import main.module.game.level.factory.map.Map;
-import main.module.game.level.factory.map.Tile;
-import main.module.game.level.factory.map.TileType;
+import main.module.game.level.map.Map;
+import main.module.game.level.map.Tile;
+import main.module.game.level.map.TileType;
 import main.util.exceptions.InvalideFileException;
 import main.util.geometry.Position;
 

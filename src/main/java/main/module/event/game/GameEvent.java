@@ -1,4 +1,4 @@
-package main.module.event.factory.game;
+package main.module.event.game;
 
 import main.util.event.Event;
 

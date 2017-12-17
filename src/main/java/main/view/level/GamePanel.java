@@ -1,9 +1,9 @@
 package main.view.level;
 
-import main.module.event.factory.level.LevelEvent;
+import main.module.event.level.LevelEvent;
 import main.module.game.level.Level;
-import main.module.game.level.factory.lemming.Lemming;
-import main.module.game.level.factory.map.Map;
+import main.module.game.level.lemming.Lemming;
+import main.module.game.level.map.Map;
 import main.util.event.Event;
 import main.util.observer.Observer;
 

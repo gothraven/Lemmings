@@ -22,8 +22,9 @@ public class HallOfFame {
 			try {
 				//TODO work on adding the new high score into the file
 				String newHighScore = player.getName() + "	" + player.getScore();
-				FileWriter fileWriter = new FileWriter(ClassLoader.getSystemResource(PATH).toString(), true);
-				//fileWriter.write(newHighScore);
+				FileWriter fileWriter = new FileWriter(new File(ClassLoader.getSystemResource(PATH).getPath()));
+				if (fileWriter == null)
+					System.out.println("test");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -32,6 +33,8 @@ public class HallOfFame {
 	}
 
 	private boolean isHighScore (int score) {
+		if (database.empty())
+			return true;
 		return database.peek().getScore() < score;
 	}
 

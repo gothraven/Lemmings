@@ -1,6 +1,6 @@
-package main.module.game.level.factory.map;
+package main.module.game.level.map;
 
-import main.module.game.level.factory.lemming.Lemming;
+import main.module.game.level.lemming.Lemming;
 
 import java.util.ArrayList;
 

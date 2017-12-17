@@ -1,7 +1,7 @@
-package main.module.game.level.factory;
+package main.util.factory;
 
 import main.util.geometry.Position;
-import main.module.game.level.factory.lemming.Lemming;
+import main.module.game.level.lemming.Lemming;
 
 public class LemmingFactory {
 

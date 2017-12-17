@@ -3,7 +3,7 @@ package main.module.game;
 
 import main.module.game.halloffame.HallOfFame;
 import main.module.game.level.Level;
-import main.module.game.levelfactory.LevelFactory;
+import main.util.factory.LevelFactory;
 import main.module.game.player.Player;
 import main.util.event.Event;
 import main.util.observebale.Observable;

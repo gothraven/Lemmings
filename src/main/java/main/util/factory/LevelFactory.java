@@ -1,4 +1,4 @@
-package main.module.game.levelfactory;
+package main.util.factory;
 
 import main.module.game.Game;
 import main.module.game.level.Level;

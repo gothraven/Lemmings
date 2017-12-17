@@ -1,6 +1,6 @@
 package main.view.game;
 
-import main.module.event.factory.game.GameEvent;
+import main.module.event.game.GameEvent;
 import main.module.game.Game;
 import main.util.event.Event;
 import main.util.observer.Observer;

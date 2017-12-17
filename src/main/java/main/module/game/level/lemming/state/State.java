@@ -1,12 +1,12 @@
-package main.module.game.level.factory.lemming.state;
+package main.module.game.level.lemming.state;
 
-import main.module.game.level.factory.lemming.Lemming;
-import main.module.game.level.factory.map.Tile;
-import main.module.game.level.factory.map.TileType;
+import main.module.game.level.lemming.Lemming;
+import main.module.game.level.map.Tile;
+import main.module.game.level.map.TileType;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
 import main.util.power.PowerRules;
-import main.module.game.level.factory.map.Map;
+import main.module.game.level.map.Map;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,8 @@
-package main.module.event.factory.level;
+package main.module.event.level;
 
 import main.module.game.level.LevelInfo;
-import main.module.game.level.factory.lemming.Lemming;
-import main.module.game.level.factory.map.Map;
+import main.module.game.level.lemming.Lemming;
+import main.module.game.level.map.Map;
 import main.util.event.Event;
 
 import java.util.ArrayList;

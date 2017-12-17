@@ -1,6 +1,6 @@
 package main.module.game.level;
 
-import main.module.game.level.factory.lemming.powertype.PowerType;
+import main.module.game.level.lemming.powertype.PowerType;
 import main.util.exceptions.InvalideFileException;
 
 import java.io.BufferedReader;

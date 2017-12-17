@@ -1,4 +1,4 @@
-package main.module.game.level.factory.map;
+package main.module.game.level.map;
 
 import main.util.exceptions.InvalideFileException;
 import main.util.exceptions.TileAlreadyExistsException;

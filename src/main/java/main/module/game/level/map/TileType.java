@@ -1,4 +1,4 @@
-package main.module.game.level.factory.map;
+package main.module.game.level.map;
 
 public enum TileType {
 	WALL(TileAction.NOTHING, false), BOX(TileAction.NOTHING, true), LAVA(TileAction.LAVA, false),

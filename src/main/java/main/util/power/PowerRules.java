@@ -1,8 +1,8 @@
 package main.util.power;
 
 
-import main.module.game.level.factory.lemming.Lemming;
-import main.module.game.level.factory.map.Map;
+import main.module.game.level.lemming.Lemming;
+import main.module.game.level.map.Map;
 
 import java.util.ArrayList;
 
