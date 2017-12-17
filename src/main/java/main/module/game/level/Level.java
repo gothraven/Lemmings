@@ -97,7 +97,7 @@ public class Level implements Observable {
 						this.info.setNbLemInGame(this.info.getNbLemInGame() - 1);
 						it.remove();
 					} else if (lemming.inGame()) {
-						lemming.move(map, lemmings);
+						lemming.walk(map, lemmings);
 					}
 				}
 

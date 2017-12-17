@@ -33,7 +33,7 @@ public class Lemming {
 		this.saved = false;
 	}
 
-	public void move (Map map, ArrayList<Lemming> lems) {
+	public void walk (Map map, ArrayList<Lemming> lems) {
 		this.power.action(this, map, lems);
 	}
 
@@ -78,7 +78,7 @@ public class Lemming {
 		pos.setY(pos.getY()+Direction.DOWN.getYdir());
 
 	}
-	public void walke() {
+	public void walk () {
 		pos.setX(pos.getX() + dir.getXdir());
 		pos.setY(pos.getY() + dir.getYdir());
 	}

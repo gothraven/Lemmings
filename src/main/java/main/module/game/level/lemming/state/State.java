@@ -19,7 +19,7 @@ public enum 	State implements PowerRules {
 				lem.fallingCounter();
 			}else{
 				if (shouldMove(lem,map)) {
-					lem.move(map, lems);
+					lem.walk();
 				}else {
 					if(shouldJump(lem,map))
 						lem.jump();
@@ -116,7 +116,7 @@ public enum 	State implements PowerRules {
 
 			}else{
 				if (shouldMove(lem,map)) {
-					lem.move(map, lems);
+					lem.walk();
 				}else {
 					if(shouldJump(lem,map))
 						lem.jump();
