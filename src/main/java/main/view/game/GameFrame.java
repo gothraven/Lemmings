@@ -1,22 +1,26 @@
 package main.view.game;
 
 import main.module.event.game.GameEvent;
-import main.module.game.Game;
 import main.util.event.Event;
+import main.util.factory.EventFactory;
 import main.util.observer.Observer;
 import main.view.level.GamePanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class GameFrame implements Observer {
+
+	public static final int WIDTH = 100;
+	public static final int HEIGHT = 100;
+	public static final int SCALE = 30;
+
 	private JFrame window;
 	private GamePanel gameView;
-	private Game game;
 
-	public GameFrame(Game game) {
+	public GameFrame() {
 		window = new JFrame("Lemmings");
-		this.game = game;
-		gameView = new GamePanel(game.getLevel());
+		gameView = new GamePanel();
 		this.init();
 	}
 
@@ -46,12 +50,17 @@ public class GameFrame implements Observer {
 		return gameView;
 	}
 
-	public void showHelp() {
-		//gameView.showHelp();
-	}
+	/*public void showHelp() {
+		gameView.showHelp();
+	}*/
 
 	public void update (GameEvent e) {
-
+		if (e.getID() == EventFactory.GAMESTART) {
+			gameView.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE + 30));
+			e.getObservable().registerObserver(this.gameView);
+		}else if (e.getID() == EventFactory.GAMEEND) {
+			this.end();
+		}
 	}
 
 	public void update (Event e) {

@@ -1,8 +1,10 @@
 package main.module.game;
 
 
+import main.module.event.game.GameEvent;
 import main.module.game.halloffame.HallOfFame;
 import main.module.game.level.Level;
+import main.util.factory.EventFactory;
 import main.util.factory.LevelFactory;
 import main.module.game.player.Player;
 import main.util.event.Event;
@@ -31,7 +33,6 @@ public class Game implements Observable {
 		this.levels = new LinkedList<File>();
 		this.loadLevelNames();
 		this.gameObservers = new ArrayList<Observer>();
-		this.level = LevelFactory.createLevel(this, levels.removeFirst());
 		this.on = true;
 	}
 
@@ -49,7 +50,7 @@ public class Game implements Observable {
 
 	public void registerObserver (Observer gameObserver) {
 		this.gameObservers.add(gameObserver);
-		this.level.registerObserver(gameObserver);
+		//this.level.registerObserver(gameObserver);
 	}
 
 	public void unregisterObserver (Observer gameObserver) {
@@ -89,6 +90,12 @@ public class Game implements Observable {
 
 	public void end () {
 		this.on = false;
+	}
+
+	public void start () {
+		this.level = LevelFactory.createLevel(this, levels.poll());
+		GameEvent event = EventFactory.createEvent(level, EventFactory.GAMESTART);
+		notifyObeservers(event);
 	}
 }
 

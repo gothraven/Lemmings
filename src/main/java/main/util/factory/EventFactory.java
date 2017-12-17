@@ -2,19 +2,29 @@ package main.util.factory;
 
 import main.module.event.game.GameEvent;
 import main.module.event.level.LevelEvent;
-import main.module.game.halloffame.HallOfFame;
-import main.module.game.level.Level;
 import main.module.game.level.LevelInfo;
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
+import main.util.observebale.Observable;
 
 import java.util.ArrayList;
 
 public class EventFactory {
+	public static int GAMESTART = 1;
+	public static int GAMEEND = 2;
 
-	//TODO fix params
-	public static GameEvent createEvent(HallOfFame hallOfFame, Level level) {
-		return new GameEvent();
+	public static GameEvent createEvent(Observable observable, int eventID) {
+		GameEvent event = null;
+
+		if (eventID == GAMESTART)
+			event = GameEvent.GAMESTART;
+		else if (eventID == GAMEEND)
+			event = GameEvent.GAMEEND;
+
+		if (event != null)
+			event.setObservable(observable);
+
+		return event;
 	}
 
 	public static LevelEvent createEvent(LevelInfo levelInfo, ArrayList<Lemming> lemmings, Map map) {

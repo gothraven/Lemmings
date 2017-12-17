@@ -1,11 +1,11 @@
 package main.view.level;
 
 import main.module.event.level.LevelEvent;
-import main.module.game.level.Level;
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
 import main.util.event.Event;
 import main.util.observer.Observer;
+import main.view.game.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,10 +18,6 @@ import java.util.Iterator;
 
 public class GamePanel extends JComponent implements Observer{
 
-
-	public static int WIDTH, HEIGHT;
-	public static final int SCALE = 30;
-
 	private long start;
 	private long elapsed;
 	private int FPS = 2;
@@ -31,27 +27,18 @@ public class GamePanel extends JComponent implements Observer{
 	private Map map;
 	private String status;
 
-	public GamePanel(Level level)
+	public GamePanel()
 	{
-		//TODO GamePanel.WIDTH =  Level.WIDTH;
-		//TODO GamePanel.HEIGHT = Level.HEIGHT;
-
-		setPreferredSize(new Dimension(GamePanel.WIDTH * SCALE, GamePanel.HEIGHT * SCALE + 30));
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				//if (e.getKeyCode() == KeyEvent.VK_H) {
-					//TODO level.keyPressed(KeyEvent.VK_P);
-					//TODO showHelp();
-				//} else
-					//TODO level.keyPressed(e.getKeyCode());
+
 			}
 		});
 
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//TODO level.mouseClicked(new Position((e.getX()/ SCALE), (e.getY() / SCALE)));
 			}
 		});
 
@@ -75,7 +62,7 @@ public class GamePanel extends JComponent implements Observer{
 			//TODO lemming.draw(g);
 		}
 		g.setColor(Color.BLACK);
-		g.drawString(status, 5, GamePanel.HEIGHT * SCALE + 20);
+		g.drawString(status, 5, GamePanel.HEIGHT * GameFrame.SCALE + 20);
 	}
 
 	public void display() {

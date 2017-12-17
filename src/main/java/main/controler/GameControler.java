@@ -11,8 +11,9 @@ public class GameControler {
 	public GameControler(String player)
 	{
 		game = new Game(player);
-		window = new GameFrame(game);
+		window = new GameFrame();
 		game.registerObserver(window);
+		game.start();
 		while (game.isOn())
 		{
 			run();
