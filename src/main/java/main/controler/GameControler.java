@@ -12,17 +12,16 @@ public class GameControler {
 	{
 		game = new Game(player);
 		window = new GameFrame(game);
-		//game.getLevel().setGameView(window.getGameView());
-		//window.showHelp();
+		game.registerObserver(window);
 		while (game.isOn())
 		{
 			run();
 		}
-		//this.window.end();
+		this.window.end();
 	}
 
 	public void run() {
 		game.update();
-		//window.show();
+		window.show();
 	}
 }
