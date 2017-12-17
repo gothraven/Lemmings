@@ -6,11 +6,11 @@ import java.io.*;
 import java.util.Stack;
 
 public class HallOfFame {
-	private static String PATH = "high scores/high scores.db";
+	private static String PATH = "high scores/hall of fame.db";
 	private Stack<Player> database;
 
 	public HallOfFame () {
-		this.database = new Stack<Player>();
+		this.database = new Stack<>();
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(PATH)));
 		this.loadDataBase(bufferedReader);
 	}
@@ -18,18 +18,17 @@ public class HallOfFame {
 	public void addPlayer (Player player) {
 		if (isHighScore(player.getScore())) {
 			this.database.push(player);
-
 			try {
-				//TODO work on adding the new high score into the file
 				String newHighScore = player.getName() + "	" + player.getScore();
-				FileWriter fileWriter = new FileWriter(new File(ClassLoader.getSystemResource(PATH).getPath()));
-				if (fileWriter == null)
-					System.out.println("test");
-			} catch (IOException e) {
+				File file = new File(ClassLoader.getSystemResource(PATH).toURI());
+				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
+				bufferedWriter.write(newHighScore);
+				bufferedWriter.newLine();
+				bufferedWriter.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	private boolean isHighScore (int score) {
@@ -43,17 +42,15 @@ public class HallOfFame {
 	}
 
 	private void loadDataBase (BufferedReader bufferedReader) {
-		//TODO needs to be implemented
-		/*try {
+		try {
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				String[] player = line.split("	");
-
 				this.database.push(new Player(player[0], Integer.parseInt(player[1])));
 			}
 			bufferedReader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 }
