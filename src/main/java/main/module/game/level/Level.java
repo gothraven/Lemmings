@@ -49,7 +49,8 @@ public class Level implements Observable {
 				time.restart();
 			} else {
 				Level.this.info.setWon(false);
-				//TODO Level.this.game.end();
+				//TODO set to next level and work on the player score stuff
+				this.game.nextLevel();
 			}
 		});
 		this.lemShowSpeedCt = 0;

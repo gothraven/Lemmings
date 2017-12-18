@@ -49,9 +49,13 @@ public class Game implements Observable {
 	}
 
 	public void start () {
-		this.level = LevelFactory.createLevel(this, levels.poll());
-		GameEvent event = EventFactory.createEvent(level, EventFactory.LEVELSTART);
-		notifyObeservers(event);
+		if (!levels.isEmpty()) {
+			this.level = LevelFactory.createLevel(this, levels.poll());
+			GameEvent event = EventFactory.createEvent(level, EventFactory.LEVELSTART);
+			notifyObeservers(event);
+		} else {
+			this.end();
+		}
 	}
 
 	public void registerObserver (Observer gameObserver) {
@@ -76,7 +80,7 @@ public class Game implements Observable {
 			notifyObeservers(event);
 		}
 		else
-			this.on = false;
+			this.end();
 	}
 
 	public void update () {
