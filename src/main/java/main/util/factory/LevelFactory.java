@@ -11,7 +11,6 @@ public class LevelFactory {
 		try {
 			return new Level(game, file);
 		} catch (InvalideFileException e) {
-			System.out.println("lazem nelgaw hal hna");
 			e.printStackTrace();
 		}
 		return null;

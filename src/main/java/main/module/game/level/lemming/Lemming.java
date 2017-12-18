@@ -4,7 +4,6 @@ import main.module.game.level.lemming.state.State;
 import main.module.game.level.map.Map;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
-import main.util.power.PowerRules;
 
 import java.util.ArrayList;
 
@@ -69,7 +68,7 @@ public class Lemming {
 		return pos;
 	}
 
-	public PowerRules getPower() {
+	public State getPower () {
 		return power;
 	}
 

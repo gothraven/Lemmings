@@ -1,16 +1,16 @@
 package main.module.game.level.lemming.state;
 
 import main.module.game.level.lemming.Lemming;
+import main.module.game.level.map.Map;
 import main.module.game.level.map.Tile;
 import main.module.game.level.map.TileType;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
 import main.util.power.PowerRules;
-import main.module.game.level.map.Map;
 
 import java.util.ArrayList;
 
-public enum 	State implements PowerRules {
+public enum State implements PowerRules {
 
 	WALKER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {

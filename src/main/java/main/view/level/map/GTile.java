@@ -8,11 +8,15 @@ import java.awt.*;
 public class GTile {
 
 	public static void draw(Tile tile, Graphics graphics) {
-		graphics.setColor(Color.CYAN);
+		graphics.setColor(getColor(tile));
 		graphics.fillRect(tile.getPosition().getX() * GamePanel.SCALE,
 				tile.getPosition().getY() * GamePanel.SCALE,
 				GamePanel.SCALE,
 				GamePanel.SCALE);
+	}
+
+	private static Color getColor (Tile tile) {
+		return GTileType.valueOf(tile.getType().name()).getColor();
 	}
 
 }

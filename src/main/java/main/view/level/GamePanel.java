@@ -5,7 +5,6 @@ import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
 import main.util.event.Event;
 import main.util.observer.Observer;
-import main.view.game.GameFrame;
 import main.view.level.lemming.GLemming;
 import main.view.level.map.GMap;
 
@@ -16,18 +15,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class GamePanel extends JComponent implements Observer{
 
 	public static final int SCALE = 30;
-	public static final int STATUS_HEIGHT = 30;
+	private static final int STATUS_HEIGHT = 30;
 
-	private int width, height;
 	private long start;
-	private long elapsed;
-	private int FPS = 2;
-	private long targetTime = 1000 / FPS;
+	private long targetTime;
 
 	private ArrayList<Lemming> lemmings;
 	private Map map;
@@ -35,19 +30,20 @@ public class GamePanel extends JComponent implements Observer{
 
 	public GamePanel(Dimension panelDimentions)
 	{
-		this.width = (int)panelDimentions.getWidth();
-		this.height = (int)panelDimentions.getHeight();
+		int width = (int) panelDimentions.getWidth();
+		int height = (int) panelDimentions.getHeight();
 		setPreferredSize(new Dimension(width * SCALE, height * SCALE +  STATUS_HEIGHT));
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-
+				System.out.println(e.getKeyCode());
 			}
 		});
 
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.println(e.getX() + ", " + e.getY());
 			}
 		});
 
@@ -57,6 +53,8 @@ public class GamePanel extends JComponent implements Observer{
 		this.lemmings = new ArrayList<>();
 		this.status = "you have selected : ";
 		start = System.currentTimeMillis();
+		int FPS = 7;
+		targetTime = 1000 / FPS;
 	}
 
 	@Override
@@ -66,10 +64,7 @@ public class GamePanel extends JComponent implements Observer{
 		if (map != null)
 			GMap.draw(map, g);
 
-		for (Iterator<Lemming> it = lemmings.iterator(); it.hasNext();) {
-			Lemming lemming = it.next();
-			GLemming.draw(lemming, g);
-		}
+		for (Lemming lemming : lemmings) GLemming.draw(lemming, g);
 		/*g.setColor(Color.BLACK);
 		g.drawString(status, 5, GamePanel.HEIGHT * GameFrame.SCALE + 20);*/
 	}
@@ -78,14 +73,16 @@ public class GamePanel extends JComponent implements Observer{
 		this.setVisible(true);
 	}
 
-	/*private void updateStatus(LevelEvent event) {
-		String statusUpdate = "you have selected : ";
-		this.status = statusUpdate + event.getPowerSelected().getName();
-		this.status += "         ";
-		this.status += event.getInfo().toString();
-		if (event.getInfo().isEnPause())
-			this.status += "     PAUSED";
-	}*/
+	/*
+	private void updateStatus(LevelEvent event) {
+	String statusUpdate = "you have selected : ";
+	this.status = statusUpdate + event.getPowerSelected().getName();
+	this.status += "         ";
+	this.status += event.getInfo().toString();
+	if (event.getInfo().isEnPause())
+	this.status += "     PAUSED";
+	}
+	*/
 
 	public void update(LevelEvent event) {
 
@@ -94,7 +91,7 @@ public class GamePanel extends JComponent implements Observer{
 		//updateStatus(event);
 
 
-		elapsed = System.currentTimeMillis() - start;
+		long elapsed = System.currentTimeMillis() - start;
 		long wait =  targetTime - elapsed / 1000000;
 
 		if(wait < 0) wait = 5000;
