@@ -13,7 +13,7 @@ public class GameControler {
 	public GameControler()
 	{
 		String player = JOptionPane.showInputDialog("What is your name");
-		if (player.isEmpty())
+		if (player == null || player.isEmpty())
 			player = "test";
 		game = new Game(player);
 		window = new GameFrame();
@@ -26,7 +26,7 @@ public class GameControler {
 		this.window.end();
 	}
 
-	public void run() {
+	private void run() {
 		game.update();
 		window.show();
 	}

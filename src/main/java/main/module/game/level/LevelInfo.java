@@ -25,9 +25,9 @@ public class LevelInfo {
 
 	private Map<PowerType, Integer> powerUps;
 
-	public LevelInfo(File file) throws InvalideFileException
+	LevelInfo (File file) throws InvalideFileException
 	{
-		this.powerUps = new TreeMap<PowerType, Integer>();
+		this.powerUps = new TreeMap<>();
 		this.enPause = false;
 		this.won = false;
 		this.nbLemTotal = 0;
@@ -46,11 +46,9 @@ public class LevelInfo {
 	{
 		try {
 			BufferedReader buff = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-			if (buff == null)
-				System.out.println("winou mechkoul");
 			String line = buff.readLine();
 			while (((line != null) && !line.startsWith("map"))) {
-				String[] lineParts = line.split("\\t| ");
+				String[] lineParts = line.split("[\\t ]");
 				switch (lineParts[0].toLowerCase()) {
 					case "lemmingspeed":
 						this.limShowSpeed = Integer.parseInt(lineParts[1]);

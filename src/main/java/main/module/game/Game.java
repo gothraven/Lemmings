@@ -14,11 +14,10 @@ import main.util.observer.Observer;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Game implements Observable {
-
-	public static String LEVELS_DIR = "levels/";
 
 	private ArrayList<Observer> gameObservers;
 	private Player player;
@@ -36,16 +35,17 @@ public class Game implements Observable {
 		this.on = true;
 	}
 
-	public void loadLevelNames () {
+	private void loadLevelNames () {
 		File dir = null;
 		try {
+			String LEVELS_DIR = "levels/";
 			dir = new File(ClassLoader.getSystemResource(LEVELS_DIR).toURI());
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
 		File[] levelFiles = dir.listFiles();
-		for(File file: levelFiles)
-			levels.add(file);
+		if (levelFiles != null)
+			levels.addAll(Arrays.asList(levelFiles));
 	}
 
 	public void start () {
@@ -97,6 +97,9 @@ public class Game implements Observable {
 
 	public void end () {
 		this.on = false;
+		this.hallOfFame.addPlayer(this.player);
+		GameEvent event = EventFactory.createEvent(this, EventFactory.GAMEEND);
+		notifyObeservers(event);
 	}
 }
 

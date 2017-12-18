@@ -1,22 +1,20 @@
 package main.module.game.level;
 
-import main.util.factory.EventFactory;
 import main.module.event.level.LevelEvent;
 import main.module.game.Game;
-import main.util.factory.LemmingFactory;
-import main.util.factory.MapFactory;
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
 import main.util.event.Event;
 import main.util.exceptions.InvalideFileException;
+import main.util.factory.EventFactory;
+import main.util.factory.LemmingFactory;
+import main.util.factory.MapFactory;
 import main.util.geometry.Position;
 import main.util.observebale.Observable;
 import main.util.observer.Observer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,17 +41,15 @@ public class Level implements Observable {
 		this.levelObservers = new ArrayList<>();
 		this.info = new LevelInfo(levelFIle);
 		this.lemmings = new ArrayList<>();
-		this.timer = new Timer(LevelInfo.SPEED_SCALE, new ActionListener() {
-			public void actionPerformed (ActionEvent e) {
-				LevelInfo info = Level.this.info;
-				if (info.getGameTime() > 0) {
-					info.setGameTime(info.getGameTime() - 1);
-					Timer time = (Timer) e.getSource();
-					time.restart();
-				} else {
-					Level.this.info.setWon(false);
-					//TODO Level.this.game.end();
-				}
+		this.timer = new Timer(LevelInfo.SPEED_SCALE, e -> {
+			LevelInfo info = Level.this.info;
+			if (info.getGameTime() > 0) {
+				info.setGameTime(info.getGameTime() - 1);
+				Timer time = (Timer) e.getSource();
+				time.restart();
+			} else {
+				Level.this.info.setWon(false);
+				//TODO Level.this.game.end();
 			}
 		});
 		this.lemShowSpeedCt = 0;
