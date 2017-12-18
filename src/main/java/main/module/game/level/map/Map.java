@@ -5,6 +5,7 @@ import main.util.exceptions.TileAlreadyExistsException;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,13 +39,13 @@ public class Map {
 					for (int x = 0; x < line.length(); x++) {
 						switch (line.charAt(x)) {
 							case '+': // BOX
-								this.map.put(new Position(x, y), new Tile(TileType.BOX));
+								this.addTile(new Position(x, y), TileType.BOX);
 								break;
 							case '@': // EXIT
 								if (this.exitPos != null)
 									throw new InvalideFileException("there are more then one exit");
 								else {
-									this.map.put(new Position(x, y), new Tile(TileType.EXIT));
+									this.addTile(new Position(x, y), TileType.EXIT);
 									this.exitPos = new Position(x, y);
 								}
 								break;
@@ -52,24 +53,24 @@ public class Map {
 								if (this.enterPos != null)
 									throw new InvalideFileException("there are more then one entrence");
 								else {
-									this.map.put(new Position(x, y), new Tile(TileType.ENTER));
+									this.addTile(new Position(x, y), TileType.ENTER);
 									this.enterPos = new Position(x, y);
 								}
 								break;
 							case '-': //WALL
-								this.map.put(new Position(x, y), new Tile(TileType.WALL));
+								this.addTile(new Position(x, y), TileType.WALL);
 								break;
 							case '#': //LAVA
-								this.map.put(new Position(x, y), new Tile(TileType.LAVA));
+								this.addTile(new Position(x, y), TileType.LAVA);
 								break;
 							case '%': //TELEPORT
-								this.map.put(new Position(x, y), new Tile(TileType.TELEPORT));
+								this.addTile(new Position(x, y), TileType.TELEPORT);
 								break;
 							case 'B': //BOMB
-								this.map.put(new Position(x, y), new Tile(TileType.BOMB));
+								this.addTile(new Position(x, y), TileType.BOMB);
 								break;
 							case '&': //MAGIC
-								this.map.put(new Position(x, y), new Tile(TileType.MAGIC));
+								this.addTile(new Position(x, y), TileType.MAGIC);
 						}
 					}
 					y++;
@@ -92,7 +93,7 @@ public class Map {
 		return null;
 	}
 
-	public Position getMaxAxes() {
+	public Dimension getMaxAxes() {
 		int xMax = 0;
 		int yMax = 0;
 
@@ -108,7 +109,7 @@ public class Map {
 			}
 		}
 
-		return new Position(xMax + 1, yMax + 1);
+		return new Dimension(xMax + 1, yMax + 1);
 	}
 
 
@@ -117,7 +118,7 @@ public class Map {
 		if (getTile(p) != null)
 			throw new TileAlreadyExistsException("there is already a tile in x="+p.getX()+", y="+p.getY());
 		else
-			this.map.put(p, new Tile(type));
+			this.map.put(p, new Tile(type, p));
 	}
 
 

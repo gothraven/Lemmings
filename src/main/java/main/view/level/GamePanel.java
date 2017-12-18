@@ -6,6 +6,8 @@ import main.module.game.level.map.Map;
 import main.util.event.Event;
 import main.util.observer.Observer;
 import main.view.game.GameFrame;
+import main.view.level.lemming.GLemming;
+import main.view.level.map.GMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +20,10 @@ import java.util.Iterator;
 
 public class GamePanel extends JComponent implements Observer{
 
+	public static final int SCALE = 30;
+	public static final int STATUS_HEIGHT = 30;
+
+	private int width, height;
 	private long start;
 	private long elapsed;
 	private int FPS = 2;
@@ -27,8 +33,11 @@ public class GamePanel extends JComponent implements Observer{
 	private Map map;
 	private String status;
 
-	public GamePanel()
+	public GamePanel(Dimension panelDimentions)
 	{
+		this.width = (int)panelDimentions.getWidth();
+		this.height = (int)panelDimentions.getHeight();
+		setPreferredSize(new Dimension(width * SCALE, height * SCALE +  STATUS_HEIGHT));
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -45,7 +54,7 @@ public class GamePanel extends JComponent implements Observer{
 
 		setFocusable(true);
 		requestFocus();
-		this.lemmings = new ArrayList<Lemming>();
+		this.lemmings = new ArrayList<>();
 		this.status = "you have selected : ";
 		start = System.currentTimeMillis();
 	}
@@ -55,14 +64,14 @@ public class GamePanel extends JComponent implements Observer{
 		super.paintComponent(g);
 		start = System.currentTimeMillis();
 		if (map != null)
-			//TODO map.draw(g);
+			GMap.draw(map, g);
 
 		for (Iterator<Lemming> it = lemmings.iterator(); it.hasNext();) {
-			Lemming lemming = (Lemming) it.next();
-			//TODO lemming.draw(g);
+			Lemming lemming = it.next();
+			GLemming.draw(lemming, g);
 		}
-		g.setColor(Color.BLACK);
-		g.drawString(status, 5, GamePanel.HEIGHT * GameFrame.SCALE + 20);
+		/*g.setColor(Color.BLACK);
+		g.drawString(status, 5, GamePanel.HEIGHT * GameFrame.SCALE + 20);*/
 	}
 
 	public void display() {
@@ -83,6 +92,7 @@ public class GamePanel extends JComponent implements Observer{
 		map = event.getMap();
 		lemmings = event.getLemmings();
 		//updateStatus(event);
+
 
 		elapsed = System.currentTimeMillis() - start;
 		long wait =  targetTime - elapsed / 1000000;

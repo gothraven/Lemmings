@@ -14,6 +14,7 @@ import main.util.observebale.Observable;
 import main.util.observer.Observer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -26,6 +27,7 @@ public class Level implements Observable {
 	private LevelInfo info;
 	private ArrayList<Lemming> lemmings;
 	private Map map;
+	private Dimension mapDimensions;
 	private Timer timer;
 	private int lemShowSpeedCt, gameSpeedCt, lemShowCt;
 
@@ -37,6 +39,7 @@ public class Level implements Observable {
 	public Level (Game game, File levelFIle) throws InvalideFileException {
 		this.game = game;
 		this.map = MapFactory.createMap(levelFIle);
+		this.mapDimensions = new Dimension(map.getMaxAxes());
 		this.levelObservers = new ArrayList<>();
 		this.info = new LevelInfo(levelFIle);
 		this.lemmings = new ArrayList<>();
@@ -157,5 +160,9 @@ public class Level implements Observable {
 
 	public Timer getTimer () {
 		return timer;
+	}
+
+	public Dimension getMapDimensions () {
+		return mapDimensions;
 	}
 }

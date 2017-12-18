@@ -30,9 +30,9 @@ public class Game implements Observable {
 	public Game (String playerName) {
 		this.hallOfFame = new HallOfFame();
 		this.player = new Player(playerName);
-		this.levels = new LinkedList<File>();
+		this.levels = new LinkedList<>();
 		this.loadLevelNames();
-		this.gameObservers = new ArrayList<Observer>();
+		this.gameObservers = new ArrayList<>();
 		this.on = true;
 	}
 
@@ -48,9 +48,14 @@ public class Game implements Observable {
 			levels.add(file);
 	}
 
+	public void start () {
+		this.level = LevelFactory.createLevel(this, levels.poll());
+		GameEvent event = EventFactory.createEvent(level, EventFactory.LEVELSTART);
+		notifyObeservers(event);
+	}
+
 	public void registerObserver (Observer gameObserver) {
 		this.gameObservers.add(gameObserver);
-		//this.level.registerObserver(gameObserver);
 	}
 
 	public void unregisterObserver (Observer gameObserver) {
@@ -67,6 +72,8 @@ public class Game implements Observable {
 	public void nextLevel() {
 		if (! levels.isEmpty()) {
 			this.level = LevelFactory.createLevel(this, levels.poll());
+			GameEvent event = EventFactory.createEvent(level, EventFactory.LEVELSTART);
+			notifyObeservers(event);
 		}
 		else
 			this.on = false;
@@ -90,12 +97,6 @@ public class Game implements Observable {
 
 	public void end () {
 		this.on = false;
-	}
-
-	public void start () {
-		this.level = LevelFactory.createLevel(this, levels.poll());
-		GameEvent event = EventFactory.createEvent(level, EventFactory.GAMESTART);
-		notifyObeservers(event);
 	}
 }
 

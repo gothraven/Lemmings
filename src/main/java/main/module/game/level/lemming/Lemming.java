@@ -1,10 +1,10 @@
 package main.module.game.level.lemming;
 
+import main.module.game.level.lemming.state.State;
 import main.module.game.level.map.Map;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
 import main.util.power.PowerRules;
-import main.module.game.level.lemming.state.State;
 
 import java.util.ArrayList;
 

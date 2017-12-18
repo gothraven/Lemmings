@@ -4,7 +4,7 @@ import main.util.event.Event;
 import main.util.observebale.Observable;
 
 public enum GameEvent implements Event {
-	GAMESTART(1), GAMEEND(2);
+	LEVELSTART(1), GAMEEND(2);
 
 	private Observable observable;
 	private int iD;
