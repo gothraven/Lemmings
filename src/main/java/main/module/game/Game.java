@@ -80,7 +80,7 @@ public class Game implements Observable {
 			notifyObeservers(event);
 		}
 		else
-			this.end();
+			this.gameOver();
 	}
 
 	public void update () {
@@ -99,9 +99,14 @@ public class Game implements Observable {
 		return player;
 	}
 
+	public void gameOver() {
+		//TODO this.hallOfFame.addPlayer(this.player);
+		System.out.println(player);
+		this.end();
+	}
+
 	public void end () {
 		this.on = false;
-		this.hallOfFame.addPlayer(this.player);
 		GameEvent event = EventFactory.createEvent(this, EventFactory.GAMEEND);
 		notifyObeservers(event);
 	}

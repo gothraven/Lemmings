@@ -33,10 +33,11 @@ public class GamePanel extends JComponent implements Observer{
 		int width = (int) panelDimentions.getWidth();
 		int height = (int) panelDimentions.getHeight();
 		setPreferredSize(new Dimension(width * SCALE, height * SCALE +  STATUS_HEIGHT));
+
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				System.out.println(e.getKeyCode());
+				System.out.println("yolo");
 			}
 		});
 
@@ -46,7 +47,6 @@ public class GamePanel extends JComponent implements Observer{
 				System.out.println(e.getX() + ", " + e.getY());
 			}
 		});
-
 
 		setFocusable(true);
 		requestFocus();

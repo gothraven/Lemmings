@@ -1,14 +1,18 @@
 package main.module.game.player;
 
 public class Player {
+
+	private static int SCORE_PER_LEM = 80;
+	private static int SCORE_PER_SEC = 30;
+
 	private String name;
-	private int score;
+	private long score;
 
 	public Player (String name) {
 		this(name, 0);
 	}
 
-	public Player (String name, int score) {
+	public Player (String name, long score) {
 		this.name = name;
 		this.score = score;
 	}
@@ -17,12 +21,12 @@ public class Player {
 		return name;
 	}
 
-	public int getScore () {
-		return score;
+	public void scoreUP(int nbLemmingsSaved, int timeLeftTillEnd) {
+		this.score = (nbLemmingsSaved * SCORE_PER_LEM) + (timeLeftTillEnd * SCORE_PER_SEC);
 	}
 
-	public void setScore (int score) {
-		this.score = score;
+	public long getScore () {
+		return score;
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class HallOfFame {
 		}
 	}
 
-	private boolean isHighScore (int score) {
+	private boolean isHighScore (long score) {
 		if (database.empty())
 			return true;
 		return database.peek().getScore() < score;

@@ -49,8 +49,8 @@ public class Level implements Observable {
 				time.restart();
 			} else {
 				Level.this.info.setWon(false);
-				//TODO set to next level and work on the player score stuff
-				this.game.nextLevel();
+				this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), this.info.getGameTime());
+				this.game.gameOver();
 			}
 		});
 		this.lemShowSpeedCt = 0;
@@ -102,11 +102,14 @@ public class Level implements Observable {
 				}
 
 				if (this.lemShowCt == this.info.getNbLemTotal() & this.info.getNbLemInGame() == 0) {
-					if (info.getNbLemSaved() >= info.getNbLemToSave())
+					this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), this.info.getGameTime());
+					if (info.getNbLemSaved() >= info.getNbLemToSave()) {
 						this.info.setWon(true);
-					else
+						this.game.nextLevel();
+					} else {
 						this.info.setWon(false);
-					this.game.end();
+						this.game.gameOver();
+					}
 				}
 
 				this.gameSpeedCt = 0;
