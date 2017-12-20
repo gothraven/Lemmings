@@ -33,7 +33,7 @@ public class Lemming {
 		this.saved = false;
 	}
 
-	public void walk (Map map, ArrayList<Lemming> lems) {
+	public void update (Map map, ArrayList<Lemming> lems) {
 		this.power.action(this, map, lems);
 	}
 
@@ -85,13 +85,21 @@ public class Lemming {
 		return false;
 	}
 
-	public boolean walk (Map map) {
+	public boolean walk (Map map, ArrayList<Lemming> lems) {
 		Tile tDirection = map.getTileInThisDirection(pos, dir);
-		if (tDirection == null || tDirection.getType().canBeIn()) {
+		if ((tDirection == null || tDirection.getType().canBeIn()) && !blockerInTheWay(lems)) {
 			pos = dir.WhatIsNextPosition(pos);
 			fallingCounter = 0;
 			return true;
 		}
+		return false;
+	}
+
+	private boolean blockerInTheWay(ArrayList<Lemming> lems) {
+		Position p = dir.WhatIsNextPosition(pos);
+		for(Lemming l : lems)
+			if (l.pos.equals(p) && l.power == State.BLOCKER)
+				return true;
 		return false;
 	}
 

@@ -14,15 +14,13 @@ public enum State implements PowerRules {
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null)
 				tile.action(lem, map, lems);
-			if (lem.fall(map)) {
-
-			} else if (lem.walk(map)) {
-
-			} else if (lem.jump(map)) {
-
-			} else {
-				lem.oppositDirection();
-			}
+			if (lem.fall(map))
+				return;
+			if (lem.walk(map, lems))
+				return;
+			if (lem.jump(map))
+				return;
+			lem.oppositDirection();
 		}
 	},
 	BOMBER {
@@ -32,16 +30,10 @@ public enum State implements PowerRules {
 	},
 	BLOCKER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-			/*if (lem.shouldFall(map)) {
-				lem.fall();
-				lem.fallingCounter();
-			} else
-				lem.resetFallingCounter();
-			if (lem.getFallingCounter() > Lemming.MAX_HEIGHT)
-				lem.kill();
 			Tile tile = map.getTile(lem.getPos());
-			if ( tile != null )
-			*/
+			if (tile != null)
+				tile.action(lem, map, lems);
+			lem.fall(map);
 		}
 	},
 	BUILDER {
