@@ -77,13 +77,6 @@ public enum TileAction implements PowerRules {
 			lem.kill();
 		}
 	},
-	BLOCKER {
-		@Override
-		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-			if (lem.inGame())
-				lem.oppositDirection();
-		}
-	},
 	NOTHING {
 		@Override
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {

@@ -34,14 +34,15 @@ public class GamePanel extends JComponent implements Observer{
 		int height = (int) panelDimentions.getHeight();
 		setPreferredSize(new Dimension(width * SCALE, height * SCALE +  STATUS_HEIGHT));
 
-		addKeyListener(new KeyAdapter() {
+		this.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent e) {
-				System.out.println("yolo");
+			public void keyPressed (KeyEvent e) {
+				super.keyPressed(e);
+				System.out.println("test" + e.getKeyCode());
 			}
 		});
 
-		addMouseListener(new MouseAdapter() {
+		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println(e.getX() + ", " + e.getY());

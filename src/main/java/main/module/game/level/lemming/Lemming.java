@@ -2,6 +2,7 @@ package main.module.game.level.lemming;
 
 import main.module.game.level.lemming.state.State;
 import main.module.game.level.map.Map;
+import main.module.game.level.map.Tile;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
 
@@ -72,32 +73,53 @@ public class Lemming {
 		return power;
 	}
 
-	public void fall(){
-		pos.setX(pos.getX()+Direction.DOWN.getXdir());
-		pos.setY(pos.getY()+Direction.DOWN.getYdir());
+	public boolean fall (Map map) {
+		Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(this.pos)));
+		if (t == null || t.getType().canBeIn()) {
+			pos = Direction.DOWN.WhatIsNextPosition(pos);
+			fallingCounter++;
+			if (fallingCounter > MAX_HEIGHT)
+				kill();
+			return true;
+		}
+		return false;
+	}
 
+	public boolean walk (Map map) {
+		Tile tDirection = map.getTileInThisDirection(pos, dir);
+		if (tDirection == null || tDirection.getType().canBeIn()) {
+			pos = dir.WhatIsNextPosition(pos);
+			fallingCounter = 0;
+			return true;
+		}
+		return false;
 	}
-	public void walk () {
-		pos.setX(pos.getX() + dir.getXdir());
-		pos.setY(pos.getY() + dir.getYdir());
+
+	public boolean jump (Map map) {
+		Tile upperNextTile = map.getTile(dir.upper().WhatIsNextPosition(pos));
+		Tile upperTile = map.getTile(Direction.UP.WhatIsNextPosition(pos));
+		if ((upperNextTile == null || upperNextTile.getType().canBeIn()) && upperTile == null) {
+			pos = dir.upper().WhatIsNextPosition(pos);
+			return true;
+		}
+		return false;
 	}
-	public void moveUp() {
-		pos.setX(pos.getX() + Direction.UP.getXdir());
-		pos.setY(pos.getY() + Direction.UP.getYdir());
-	}
-	public void jump(){
-		Direction next = getDir().upper();
-		pos.setX(pos.getX() + next.getXdir());
-		pos.setY(pos.getY() + next.getYdir());
-	}
+
 	public void oppositDirection(){
 		dir = dir.oppositDirection(dir);
 	}
-	public void restFallingCounter(){ this.fallingCounter = 0; }
+
+	public void resetFallingCounter () {
+		this.fallingCounter = 0;
+	}
 	public void fallingCounter(){ this.fallingCounter++; }
 	public int getFallingCounter(){ return  this.fallingCounter; }
 
 	public void setPos (Position pos) {
 		this.pos = pos;
+	}
+
+	public void setDir (Direction dir) {
+		this.dir = dir;
 	}
 }

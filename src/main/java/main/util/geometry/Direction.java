@@ -1,7 +1,7 @@
 package main.util.geometry;
 
 public enum Direction {
-	NULL(0, 0), UP(0, -1),DOWN(0, 1), LEFT(-1, 0), RIGHT(1, 0),
+	UP(0, - 1), DOWN(0, 1), LEFT(- 1, 0), RIGHT(1, 0),
 	UPPERLEFT(LEFT.xdir,UP.ydir), UPPERRIGHT(RIGHT.xdir, UP.ydir),
 	DOWNERLEFT(LEFT.xdir, DOWN.ydir), DOWNERRIGHT(RIGHT.xdir, DOWN.ydir);
 	int xdir;
@@ -32,6 +32,7 @@ public enum Direction {
 		else
 			return null;
 	}
+
 	public Direction oppositDirection(Direction dir) {
 		if (dir.equals(RIGHT))
 			return Direction.LEFT;
