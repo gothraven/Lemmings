@@ -60,7 +60,6 @@ public class Level implements Observable {
 
 	public void update () {
 		if (this.info.isEnPause()) {
-
 			if (this.timer.isRunning()) {
 				this.timer.stop();
 				LevelEvent event = EventFactory.createEvent(info, lemmings, map);

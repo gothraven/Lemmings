@@ -25,8 +25,8 @@ public class GameFrame implements Observer {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setLocation(200, 100);
 		window.setResizable(false);
-		window.pack();
 		window.setVisible(true);
+		window.requestFocus();
 	}
 
 	public void show() {
