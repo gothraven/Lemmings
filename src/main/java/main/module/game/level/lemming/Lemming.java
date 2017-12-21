@@ -22,7 +22,7 @@ public class Lemming {
 	}
 
 	public Lemming (Position pos, Direction dir) {
-		this(pos, dir, State.WALKER);
+		this(pos, dir, State.PARATROOPER);
 	}
 
 	public Lemming (Position pos, Direction dir, State power) {
@@ -112,6 +112,24 @@ public class Lemming {
 		}
 		return false;
 	}
+	public boolean climb (Map map) {
+
+		Tile upperTile = map.getTile(Direction.UP.WhatIsNextPosition(pos));
+		if ( upperTile == null) {
+			pos = Direction.UP.WhatIsNextPosition(pos);
+			return true;
+		}
+		return false;
+	}
+	public boolean fly (Map map) {
+			Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(this.pos)));
+			if (t == null || t.getType().canBeIn()) {
+				pos = Direction.DOWN.WhatIsNextPosition(pos);
+				return true;
+			}
+			return false;
+		}
+
 
 	public void oppositDirection(){
 		dir = dir.oppositDirection(dir);
