@@ -3,6 +3,7 @@ package main.module.game.level.lemming.state;
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
 import main.module.game.level.map.Tile;
+import main.util.exceptions.TileAlreadyExistsException;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
 import main.util.power.PowerRules;
@@ -39,8 +40,22 @@ public enum State implements PowerRules {
 		}
 	},
 	BUILDER {
+		private  int step = 0;
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-
+			try {
+				if (lem.build(map)){
+					step ++;
+					return;
+				}else {
+					lem.changePower(State.WALKER);
+				}
+			} catch (TileAlreadyExistsException e) {
+				e.printStackTrace();
+			}
+			if (step >=6)
+				lem.changePower(State.WALKER);
+			if (lem.jump(map))
+			return;
 		}
 	},
 	CLIMBER {
@@ -67,8 +82,38 @@ public enum State implements PowerRules {
 		}
 	},
 	DIGGER {
-		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
+		private int step=0,allStep =0;
+		private boolean startDigger = false;
+		private boolean digger(Map map ,Lemming lem){
+			Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
 
+			if (t.getType().isDestructible()){
+				startDigger = true;
+				map.removeTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
+				step++;
+				return true;
+			}
+			if (step >=6)
+				lem.changePower(State.WALKER);
+			return false;
+		}
+		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
+			if (startDigger)
+				allStep++;
+			Tile tile = map.getTile(lem.getPos());
+			if (tile != null)
+				tile.action(lem, map, lems);
+			if (lem.fall(map))
+				return;
+			if (allStep-step>=1)
+				lem.changePower(State.WALKER);
+			if( digger(map,lem));
+
+			if (lem.walk(map, lems))
+				return;
+			if (lem.jump(map))
+				return;
+			lem.oppositDirection();
 		}
 	},
 	MINER {

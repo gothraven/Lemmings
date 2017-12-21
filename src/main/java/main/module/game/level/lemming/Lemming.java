@@ -3,6 +3,8 @@ package main.module.game.level.lemming;
 import main.module.game.level.lemming.state.State;
 import main.module.game.level.map.Map;
 import main.module.game.level.map.Tile;
+import main.module.game.level.map.TileType;
+import main.util.exceptions.TileAlreadyExistsException;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
 
@@ -147,5 +149,13 @@ public class Lemming {
 
 	public void setDir (Direction dir) {
 		this.dir = dir;
+	}
+	public boolean build(Map map) throws TileAlreadyExistsException {
+		Tile tDirection = map.getTileInThisDirection(pos, dir);
+		if(tDirection == null){
+			map.addTile(new Position(dir.WhatIsNextPosition(pos)), TileType.BOX);
+			return true;
+		}
+	return false;
 	}
 }
