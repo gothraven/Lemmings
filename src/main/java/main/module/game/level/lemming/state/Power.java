@@ -14,9 +14,12 @@ import java.util.ArrayList;
 public enum Power implements PowerRules {
 
 	WALKER {
-
+ 	int a = 0;
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-
+			a++;
+			if (a == 20){
+				lem.changePower(Power.DIGGER);
+			}
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
@@ -75,14 +78,14 @@ public enum Power implements PowerRules {
 			try {
 				if (lem.build(map)){
 					lem.setCountStepAfterChangePower();
-					return;
+
 				}else {
 					lem.changePower(Power.WALKER);
 				}
 			} catch (TileAlreadyExistsException e) {
 				e.printStackTrace();
 			}
-			if (lem.getCountStepAfterChangePower() >=6) {
+			if (lem.getCountStepAfterChangePower() >=5) {
 				lem.changePower(Power.WALKER);
 				return;
 			}
@@ -115,41 +118,43 @@ public enum Power implements PowerRules {
 		}
 	},
 	DIGGER {
-		private int step=0,allStep =0;
-		private boolean startDigger = false;
-		private boolean digger(Map map ,Lemming lem){
-			Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
 
-			if (t.getType().isDestructible()){
-				startDigger = true;
-				map.removeTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
-				step++;
-				return true;
-			}
-			if (step >=6)
-				lem.changePower(Power.WALKER);
-			return false;
-		}
 
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-			if (startDigger)
-				allStep++;
-			Tile tile = map.getTile(lem.getPos());
-			if (tile != null && tile.getType() !=  TileType.ENTER) {
-				tile.action(lem, map, lems);
-				return;
+			if (lem.getCountStepAfterChangePower() == 0){
+				Tile tile = map.getTile(lem.getPos());
+				if (tile != null && tile.getType() !=  TileType.ENTER) {
+					tile.action(lem, map, lems);
+					return;
+				}
+				if (lem.fall(map))
+					return;
+				Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
+
+				if (t.getType().isDestructible()){
+					lem.setCountStepAfterChangePower();
+					map.removeTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
+					return;
+				}
+				if (lem.walk(map, lems))
+					return;
+				if (lem.jump(map))
+					return;
+				lem.oppositDirection();
+			}else{
+				Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
+					if (t.getType().isDestructible()){
+						lem.setCountStepAfterChangePower();
+						map.removeTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
+						lem.setPos(new Position(lem.getPos().getX()+Direction.DOWN.getXdir(),lem.getPos().getY()+Direction.DOWN.getYdir()));
+					}else {
+						lem.changePower(Power.WALKER);
+					}
+
+				if (lem.getCountStepAfterChangePower() >=5)
+					lem.changePower(Power.WALKER);
 			}
-			if (lem.fall(map))
-				return;
-			if (allStep-step>=1)
-				lem.changePower(Power.WALKER);
-			if( digger(map,lem))
-				return;
-			if (lem.walk(map, lems))
-				return;
-			if (lem.jump(map))
-				return;
-			lem.oppositDirection();
+
 		}
 	},
 	MINER {
