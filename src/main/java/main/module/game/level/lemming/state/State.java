@@ -107,8 +107,8 @@ public enum State implements PowerRules {
 				return;
 			if (allStep-step>=1)
 				lem.changePower(State.WALKER);
-			if( digger(map,lem));
-
+			if( digger(map,lem))
+				return;
 			if (lem.walk(map, lems))
 				return;
 			if (lem.jump(map))
@@ -117,8 +117,39 @@ public enum State implements PowerRules {
 		}
 	},
 	MINER {
+		private boolean startMiner = false;
+		private void shouldStartMiner(Map map ,Lemming lem){
+			Tile t = map.getTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
+			if (t.getType().isDestructible()){
+				startMiner = true;
+			}
+		}
+		private void miner(Map map ,Lemming lem){
+			Tile t = map.getTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
+			if (t.getType().isDestructible()){
+				map.removeTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
+			}else{
+				lem.changePower(State.WALKER);
+			}
+		}
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 
+			Tile tile = map.getTile(lem.getPos());
+			if (tile != null)
+				tile.action(lem, map, lems);
+			shouldStartMiner(map,lem);
+			if (lem.fall(map)){
+				if (startMiner)
+					lem.changePower(State.WALKER);
+				return;
+			}
+			if (startMiner)
+				miner(map,lem);
+			if (lem.walk(map, lems))
+				return;
+			if (lem.jump(map))
+				return;
+			lem.oppositDirection();
 		}
 	},
 	PARATROOPER {
