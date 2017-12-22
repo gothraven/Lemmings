@@ -42,6 +42,8 @@ public class Lemming {
 	}
 
 	public boolean changePower (Power power) {
+		if (this.power == power )
+			return false;
 		if (this.power == Power.BLOCKER & power == Power.BOMBER) {
 			this.power = power;
 			countStepAfterChangePower = 0 ;
