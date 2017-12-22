@@ -16,8 +16,10 @@ public enum State implements PowerRules {
 	WALKER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			Tile tile = map.getTile(lem.getPos());
-			if (tile != null)
+			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
+				return;
+			}
 			if (lem.fall(map))
 				return;
 			if (lem.walk(map, lems))
@@ -35,8 +37,10 @@ public enum State implements PowerRules {
 				explode(lem,map,lems);
 			}
 			Tile tile = map.getTile(lem.getPos());
-			if (tile != null)
+			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
+				return;
+			}
 			if (lem.fall(map))
 				return;
 			if (lem.walk(map, lems))
@@ -50,6 +54,9 @@ public enum State implements PowerRules {
 		* void explode(lem, map, lems) -> explode
 		* */
 		private  void explode (Lemming lem , Map map ,ArrayList<Lemming> lems){
+
+			//on peut faire aussi  State.BOMBER.action(lem,map,lems);
+
 			int x = lem.getPos().getX(), y = lem.getPos().getY();
 			ArrayList<Position> positions = new ArrayList<>();
 			positions.add(new Position(x - 1, y - 1));
@@ -83,8 +90,10 @@ public enum State implements PowerRules {
 	BLOCKER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			Tile tile = map.getTile(lem.getPos());
-			if (tile != null)
+			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
+				return;
+			}
 			lem.fall(map);
 		}
 	},
@@ -112,8 +121,10 @@ public enum State implements PowerRules {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			System.out.println(lem);
 			Tile tile = map.getTile(lem.getPos());
-			if (tile != null)
+			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
+				return;
+			}
 			if (!imClimbing)
 				if (lem.fall(map))
 					return;
@@ -146,12 +157,15 @@ public enum State implements PowerRules {
 				lem.changePower(State.WALKER);
 			return false;
 		}
+
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			if (startDigger)
 				allStep++;
 			Tile tile = map.getTile(lem.getPos());
-			if (tile != null)
+			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
+				return;
+			}
 			if (lem.fall(map))
 				return;
 			if (allStep-step>=1)
@@ -184,8 +198,10 @@ public enum State implements PowerRules {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 
 			Tile tile = map.getTile(lem.getPos());
-			if (tile != null)
+			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
+				return;
+			}
 			shouldStartMiner(map,lem);
 			if (lem.fall(map)){
 				if (startMiner)
@@ -219,8 +235,10 @@ public enum State implements PowerRules {
 		}
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			Tile tile = map.getTile(lem.getPos());
-			if (tile != null)
+			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
+				return;
+			}
 			if (fly(map,lem))
 				return;
 			if (lem.walk(map, lems))
