@@ -8,7 +8,6 @@ import main.util.factory.EventFactory;
 import main.util.observebale.Observable;
 import main.util.observer.Observer;
 import main.view.level.GamePanel;
-import main.view.level.action.PowerPerKey;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -35,10 +34,8 @@ public class GameFrame implements Observer {
 		window.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed (KeyEvent e) {
-				super.keyPressed(e);
-				if (game != null)
-					game.getPlayer().changePower(PowerPerKey.valueOf(Character.toUpperCase(e.getKeyChar())+"").getPower());
-				//gonna try fix this later
+				if (gameView != null)
+					gameView.keyPressed(e.getKeyChar());
 			}
 		});
 	}
@@ -50,10 +47,6 @@ public class GameFrame implements Observer {
 
 	public void end() {
 		window.dispose();
-	}
-
-	public GamePanel getGameView() {
-		return gameView;
 	}
 
 	public void update (GameEvent e) {

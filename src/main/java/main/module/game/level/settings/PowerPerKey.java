@@ -1,4 +1,4 @@
-package main.view.level.action;
+package main.module.game.level.settings;
 
 
 import main.module.game.level.lemming.state.Power;

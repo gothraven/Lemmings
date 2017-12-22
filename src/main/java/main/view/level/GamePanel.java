@@ -5,6 +5,7 @@ import main.module.game.level.Level;
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
 import main.util.event.Event;
+import main.util.geometry.Position;
 import main.util.observer.Observer;
 import main.view.level.lemming.GLemming;
 import main.view.level.map.GMap;
@@ -35,7 +36,8 @@ public class GamePanel extends JComponent implements Observer {
 
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-
+				if (level != null)
+					level.mouseClicked(new Position((e.getX() / SCALE), (e.getY() / SCALE)));
 			}
 		});
 
@@ -44,7 +46,7 @@ public class GamePanel extends JComponent implements Observer {
 		requestFocusInWindow();
 		this.lemmings = new ArrayList<>();
 		start = System.currentTimeMillis();
-		int FPS = 7;
+		int FPS = 3;
 		targetTime = 1000 / FPS;
 	}
 
@@ -80,9 +82,12 @@ public class GamePanel extends JComponent implements Observer {
 	}
 
 	public void update (Event e) {
-		//TODO work on this later
 		if (e.getClass() == LevelEvent.class)
 			update((LevelEvent)e);
+	}
+
+	public void keyPressed (char keyChar) {
+		level.keyPressed(keyChar);
 	}
 
 	public void setLevel (Level level) {

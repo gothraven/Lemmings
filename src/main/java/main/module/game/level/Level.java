@@ -3,7 +3,9 @@ package main.module.game.level;
 import main.module.event.level.LevelEvent;
 import main.module.game.Game;
 import main.module.game.level.lemming.Lemming;
+import main.module.game.level.lemming.state.Power;
 import main.module.game.level.map.Map;
+import main.module.game.level.settings.PowerSelector;
 import main.util.event.Event;
 import main.util.exceptions.InvalideFileException;
 import main.util.factory.EventFactory;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Level implements Observable {
+
 	private ArrayList<Observer> levelObservers;
 	private Game game;
 	private LevelInfo info;
@@ -28,6 +31,7 @@ public class Level implements Observable {
 	private Dimension mapDimensions;
 	private Timer timer;
 	private int lemShowSpeedCt, gameSpeedCt, lemShowCt;
+	private Power selectedPower;
 
 	public Level (File levelFile) throws InvalideFileException
 	{
@@ -116,6 +120,21 @@ public class Level implements Observable {
 				notifyObeservers(event);
 			}
 		}
+	}
+
+	public void keyPressed (char keyCode) {
+		if (PowerSelector.isAPowerKey(keyCode))
+			this.selectedPower = PowerSelector.selectPower(keyCode);
+	}
+
+	public void mouseClicked (Position p) {
+		if (selectedPower != null) {
+			System.out.println(selectedPower.name() + ", " + p);
+			for (Lemming lem : lemmings)
+				if (lem.getPos().equals(p))
+					lem.changePower(selectedPower);
+		}
+
 	}
 
 	public void registerObserver (Observer levelObserver) {
