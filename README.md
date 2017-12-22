@@ -19,6 +19,9 @@ you can feel free to change add or anything you wish.
 	-> change the game level name -> RUN
 * You have the levels under the resources folder in case you want to modify or create your own levels
 
+## Screen Shots From The Game ##
+<img align="centre"  src="./sceenshots/screenshot1.png" width="45%"/>
+
 ### Contribution guidelines ###
 
 * Code review : 29/10/2017 22:09
