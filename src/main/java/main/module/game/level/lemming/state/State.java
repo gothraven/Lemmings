@@ -91,7 +91,6 @@ public enum State implements PowerRules {
 		}
 	},
 	CLIMBER {
-		private boolean imClimbing = false;
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null && tile.getType() !=  TileType.ENTER) {
