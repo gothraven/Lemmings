@@ -23,7 +23,7 @@ public class Player {
 	}
 
 	public void scoreUP(int nbLemmingsSaved, int timeLeftTillEnd) {
-		this.score = (nbLemmingsSaved * SCORE_PER_LEM) + (timeLeftTillEnd * SCORE_PER_SEC);
+		this.score += (nbLemmingsSaved * SCORE_PER_LEM) + (timeLeftTillEnd * SCORE_PER_SEC);
 	}
 
 	public long getScore () {

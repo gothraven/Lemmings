@@ -1,4 +1,4 @@
-package main.module.game.level.lemming.state;
+package main.module.game.level.lemming.power;
 
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
@@ -32,7 +32,7 @@ public enum Power implements PowerRules {
 	BOMBER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			lem.setCountStepAfterChangePower();
-			if (lem.getCountStepAfterChangePower() >=4) {
+			if (lem.getPowerTimeCounter() >= 4) {
 				explode(lem,map,lems);
 			}
 			Tile tile = map.getTile(lem.getPos());
@@ -74,7 +74,7 @@ public enum Power implements PowerRules {
 			} catch (TileAlreadyExistsException e) {
 				e.printStackTrace();
 			}
-			if (lem.getCountStepAfterChangePower() >=5) {
+			if (lem.getPowerTimeCounter() >= 5) {
 				lem.changePower(Power.WALKER);
 				return;
 			}
@@ -89,7 +89,7 @@ public enum Power implements PowerRules {
 				tile.action(lem, map, lems);
 				return;
 			}
-			if (lem.getCountStepAfterChangePower() == 0)
+			if (lem.getPowerTimeCounter() == 0)
 				if (lem.fall(map))
 					return;
 			if (lem.walk(map, lems)){
@@ -108,7 +108,7 @@ public enum Power implements PowerRules {
 	},
 	DIGGER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-			if (lem.getCountStepAfterChangePower() == 0){
+			if (lem.getPowerTimeCounter() == 0) {
 				Tile tile = map.getTile(lem.getPos());
 				if (tile != null && tile.getType() !=  TileType.ENTER) {
 					tile.action(lem, map, lems);
@@ -142,7 +142,7 @@ public enum Power implements PowerRules {
 				}else{
 					lem.changePower(Power.WALKER);
 				}
-				if (lem.getCountStepAfterChangePower() >=5)
+				if (lem.getPowerTimeCounter() >= 5)
 					lem.changePower(Power.WALKER);
 			}
 
@@ -165,7 +165,7 @@ public enum Power implements PowerRules {
 			return false;
 		}
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-			if (lem.getCountStepAfterChangePower()== 0){
+			if (lem.getPowerTimeCounter() == 0) {
 				Tile t = map.getTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
 				Tile tile = map.getTile(lem.getPos());
 				if (tile != null && tile.getType() !=  TileType.ENTER) {
@@ -193,7 +193,7 @@ public enum Power implements PowerRules {
 		private boolean fly(Map map ,Lemming lem) {
 			Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
 			if (t == null || t.getType().canBeIn()) {
-				if ((lem.getCountStepAfterChangePower() %2)==0) {
+				if ((lem.getPowerTimeCounter() % 2) == 0) {
 					lem.fly(map);
 					lem.setCountStepAfterChangePower();
 				} else {

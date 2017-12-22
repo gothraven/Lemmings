@@ -86,7 +86,8 @@ public class Game implements Observable {
 	}
 
 	public void update () {
-		level.update();
+		if (on)
+			level.update();
 	}
 
 	public boolean isOn () {

@@ -49,12 +49,12 @@ public class GameFrame implements Observer {
 
 	private void end () {
 		String message = "Your Score " + game.getPlayer().getScore();
-		JOptionPane.showMessageDialog(window, message, "Game Over", 1);
+		JOptionPane.showMessageDialog(null, message, "Game Over", 1);
 		String highScores = "";
 		Stack<Player> dataBase = game.getHallOfFame().getDatabase();
 		while (! dataBase.isEmpty())
 			highScores += dataBase.pop().toString() + System.getProperty("line.separator");
-		JOptionPane.showMessageDialog(window, highScores, "High Scores", 1);
+		JOptionPane.showMessageDialog(null, highScores, "High Scores", 1);
 		window.dispose();
 	}
 

@@ -1,13 +1,15 @@
 package main.view.level.status;
 
 import main.module.game.level.LevelInfo;
-import main.module.game.level.lemming.state.Power;
+import main.module.game.level.lemming.power.Power;
 import main.util.geometry.Position;
 
 import java.awt.*;
 
 public class GStatus {
 
+	private static final String playerName = "Player : ";
+	private static final String playerScore = " , Score : ";
 	private static final String selectedPower = "Selected Power : ";
 	private static final String powersBank = "Possible Power Postions :\n";
 	private static final String blocker = "- " + Power.BLOCKER.name() + ": (";
@@ -18,30 +20,27 @@ public class GStatus {
 	private static final String miner = "- " + Power.MINER.name() + ": (";
 	private static final String paratrooper = "- " + Power.PARATROOPER.name() + ": (";
 	private static final String time = "Time left : ";
+	private static final String lemsToSave = "save (";
+
 	private static String newLine = System.getProperty("line.separator");
-	private LevelInfo levelInfo;
 	private String status;
 	private Position statusPos;
 
 	public GStatus (Position statusPos) {
-		this(statusPos, null);
-	}
-
-	public GStatus (Position statusPos, LevelInfo levelInfo) {
 		this.statusPos = new Position(statusPos);
-		this.levelInfo = levelInfo;
 	}
 
 	public void update (LevelInfo levelInfo) {
-		this.levelInfo = levelInfo;
 		if (levelInfo != null) {
 			status = "";
+			status += playerName + levelInfo.getPlayer().getName() + playerScore + levelInfo.getPlayer().getScore();
+			status += newLine;
 			status += selectedPower;
 			if (levelInfo.getSelectedPower() != null)
 				status += levelInfo.getSelectedPower().name();
 			status += newLine;
-			status += newLine;
 			status += powersBank;
+			status += newLine;
 			status += blocker + levelInfo.getPowerUps().get(Power.BLOCKER) + ")";
 			status += newLine;
 			status += bomber + levelInfo.getPowerUps().get(Power.BOMBER) + ")";
@@ -56,8 +55,11 @@ public class GStatus {
 			status += newLine;
 			status += paratrooper + levelInfo.getPowerUps().get(Power.PARATROOPER) + ")";
 			status += newLine;
+			status += time + levelInfo.getGameTime() + " sec(s)";
 			status += newLine;
-			status += time + levelInfo.getGameTime();
+			if (levelInfo.isInPause())
+				status += " [PAUSED]";
+			status += lemsToSave + levelInfo.getNbLemToSave() + "/" + levelInfo.getNbLemTotal() + ")";
 		}
 	}
 

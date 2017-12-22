@@ -1,7 +1,7 @@
 package main.module.game.level.settings;
 
 
-import main.module.game.level.lemming.state.Power;
+import main.module.game.level.lemming.power.Power;
 
 public enum PowerPerKey {
 	A(Power.BLOCKER), Z(Power.BOMBER), E(Power.BUILDER),

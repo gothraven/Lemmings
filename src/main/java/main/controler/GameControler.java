@@ -23,6 +23,7 @@ public class GameControler {
 		{
 			run();
 		}
+		System.out.println("end");
 	}
 
 	private void run() {

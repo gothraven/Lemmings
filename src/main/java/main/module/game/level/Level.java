@@ -42,6 +42,7 @@ public class Level implements Observable {
 		this.mapDimensions = new Dimension(map.getMaxAxes());
 		this.levelObservers = new ArrayList<>();
 		this.info = new LevelInfo(levelFIle);
+		this.info.setPlayer(game.getPlayer());
 		this.lemmings = new ArrayList<>();
 		this.timer = new Timer(LevelInfo.SPEED_SCALE, e -> {
 			LevelInfo info = Level.this.info;
@@ -51,7 +52,7 @@ public class Level implements Observable {
 				time.restart();
 			} else {
 				Level.this.info.setWon(false);
-				this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), this.info.getGameTime());
+				this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), 0);
 				this.game.gameOver();
 			}
 		});
@@ -61,7 +62,7 @@ public class Level implements Observable {
 	}
 
 	public void update () {
-		if (this.info.isEnPause()) {
+		if (this.info.isInPause()) {
 			if (this.timer.isRunning()) {
 				this.timer.stop();
 				LevelEvent event = EventFactory.createEvent(info, lemmings, map);
@@ -112,6 +113,7 @@ public class Level implements Observable {
 						this.info.setWon(false);
 						this.game.gameOver();
 					}
+					return;
 				}
 
 				this.gameSpeedCt = 0;
@@ -121,9 +123,17 @@ public class Level implements Observable {
 		}
 	}
 
+	public void pause () {
+		if (info.isInPause())
+			info.setInPause(false);
+		else
+			info.setInPause(true);
+	}
 	public void keyPressed (char keyCode) {
 		if (PowerSelector.isAPowerKey(keyCode))
 			info.setSelectedPower(PowerSelector.selectPower(keyCode));
+		else if (keyCode == 'p')
+			this.pause();
 	}
 
 	public void mouseClicked (Position p) {

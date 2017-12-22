@@ -21,7 +21,6 @@ public class GamePanel extends JComponent implements Observer {
 
 	public static final int SCALE = 25;
 	private static final int STATUS_HEIGHT = 210;
-
 	private long start;
 	private long targetTime;
 
@@ -47,7 +46,7 @@ public class GamePanel extends JComponent implements Observer {
 		requestFocus();
 		requestFocusInWindow();
 		this.lemmings = new ArrayList<>();
-		this.status = new GStatus(new Position(20, height * SCALE + 20));
+		this.status = new GStatus(new Position(20, height * SCALE));
 		start = System.currentTimeMillis();
 		int FPS = 3;
 		targetTime = 1000 / FPS;
@@ -57,6 +56,8 @@ public class GamePanel extends JComponent implements Observer {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		start = System.currentTimeMillis();
+
+		showHelp(g);
 		if (map != null)
 			GMap.draw(map, g);
 
@@ -69,7 +70,7 @@ public class GamePanel extends JComponent implements Observer {
 		this.setVisible(true);
 	}
 
-	public void update(LevelEvent event) {
+	private void update (LevelEvent event) {
 		map = new Map(event.getMap());
 		lemmings.clear();
 		lemmings.addAll(event.getLemmings());
@@ -98,5 +99,23 @@ public class GamePanel extends JComponent implements Observer {
 
 	public void setLevel (Level level) {
 		this.level = level;
+	}
+
+	private void showHelp (Graphics g) {
+		String newLine = System.getProperty("line.separator");
+		int x = getSize().width / 2;
+		int y = getSize().height - STATUS_HEIGHT;
+
+		String message = "Controle keys are the following:" + newLine + newLine
+				+ "- A to to change a  lemming to a BLOCKER" + newLine
+				+ "- Z to to change a  lemming to a BOMBER" + newLine
+				+ "- E to to change a  lemming to a BUILDER" + newLine
+				+ "- Q to to change a  lemming to a CLIMBER" + newLine
+				+ "- S to to change a  lemming to a DIGGER" + newLine
+				+ "- D to to change a  lemming to a MINER" + newLine
+				+ "- W to to change a  lemming to a PARATROOPER" + newLine
+				+ "- P for pausing and unpausing the game";
+		for (String line : message.split("\n"))
+			g.drawString(line, x, y += g.getFontMetrics().getHeight());
 	}
 }

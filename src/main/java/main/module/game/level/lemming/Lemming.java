@@ -1,7 +1,6 @@
 package main.module.game.level.lemming;
 
-import junit.framework.Test;
-import main.module.game.level.lemming.state.Power;
+import main.module.game.level.lemming.power.Power;
 import main.module.game.level.map.Map;
 import main.module.game.level.map.Tile;
 import main.module.game.level.map.TileType;
@@ -12,14 +11,14 @@ import main.util.geometry.Position;
 import java.util.ArrayList;
 
 public class Lemming {
-	public static int MAX_HEIGHT = 5;
+	private static int MAX_HEIGHT = 5;
 	private Position pos;
 	private Direction dir;
 	private Power power;
 	private boolean alive;
 	private boolean saved;
 	private int fallingCounter;
-	private int countStepAfterChangePower=0 ;
+	private int powerTimeCounter = 0;
 
 
 	public Lemming (Position pos) {
@@ -43,19 +42,19 @@ public class Lemming {
 	}
 
 	public boolean changePower (Power power) {
-		if (this.power == power )
+		if (this.power == power)
 			return false;
 		if (this.power == Power.BLOCKER & power == Power.BOMBER) {
 			this.power = power;
-			countStepAfterChangePower = 0 ;
-			 return true;
+			powerTimeCounter = 0;
+			return true;
 		}
 		if (this.power != Power.BLOCKER && this.power != Power.BOMBER) {
 			this.power = power;
-			countStepAfterChangePower = 0 ;
+			powerTimeCounter = 0;
 			return true;
 		}
-	return false;
+		return false;
 	}
 
 	public boolean isAlive () {
@@ -74,8 +73,8 @@ public class Lemming {
 		this.saved = true;
 	}
 
-	public boolean inGame() {
-		return (isAlive() && !isSaved());
+	public boolean inGame () {
+		return (isAlive() && ! isSaved());
 	}
 
 	public Direction getDir () {
@@ -104,7 +103,7 @@ public class Lemming {
 
 	public boolean walk (Map map, ArrayList<Lemming> lems) {
 		Tile tDirection = map.getTileInThisDirection(pos, dir);
-		if ((tDirection == null || tDirection.getType().canBeIn()) && !blockerInTheWay(lems)) {
+		if ((tDirection == null || tDirection.getType().canBeIn()) && blockerInTheWay(lems)) {
 			pos = dir.WhatIsNextPosition(pos);
 			fallingCounter = 0;
 			return true;
@@ -112,77 +111,69 @@ public class Lemming {
 		return false;
 	}
 
-	private boolean blockerInTheWay(ArrayList<Lemming> lems) {
+	private boolean blockerInTheWay (ArrayList<Lemming> lems) {
 		Position p = dir.WhatIsNextPosition(pos);
-		for(Lemming l : lems)
+		for (Lemming l : lems)
 			if (l.pos.equals(p) && l.power == Power.BLOCKER)
-				return true;
-		return false;
+				return false;
+		return true;
 	}
 
-	public boolean jump (Map map ,ArrayList<Lemming> lems) {
+	public boolean jump (Map map, ArrayList<Lemming> lems) {
 		Tile upperNextTile = map.getTile(dir.upper().WhatIsNextPosition(pos));
 		Tile upperTile = map.getTile(Direction.UP.WhatIsNextPosition(pos));
-		if (((upperNextTile == null || upperNextTile.getType().canBeIn()) && upperTile == null)&&  !blockerInTheWay(lems)) {
+		if (((upperNextTile == null || upperNextTile.getType().canBeIn()) && upperTile == null) && blockerInTheWay(lems)) {
 			pos = dir.upper().WhatIsNextPosition(pos);
 			return true;
 		}
 		return false;
 	}
 
-
-
 	public boolean climb (Map map) {
 
 		Tile upperTile = map.getTile(Direction.UP.WhatIsNextPosition(pos));
-		if ( upperTile == null || upperTile.getType() == TileType.EXIT) {
+		if (upperTile == null || upperTile.getType() == TileType.EXIT) {
 			pos = Direction.UP.WhatIsNextPosition(pos);
 			return true;
 		}
 		return false;
 	}
+
 	public boolean fly (Map map) {
-			Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(this.pos)));
-			if (t == null || t.getType().canBeIn()) {
-				pos = Direction.DOWN.WhatIsNextPosition(pos);
-				return true;
-			}
-			return false;
+		Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(this.pos)));
+		if (t == null || t.getType().canBeIn()) {
+			pos = Direction.DOWN.WhatIsNextPosition(pos);
+			return true;
 		}
+		return false;
+	}
 
-
-	public void oppositDirection(){
+	public void oppositDirection () {
 		dir = dir.oppositDirection(dir);
 	}
 
-	public void resetFallingCounter () {
-		this.fallingCounter = 0;
+	public int getPowerTimeCounter () {
+		return powerTimeCounter;
 	}
 
-	public void fallingCounter(){ this.fallingCounter++; }
+	public void setCountStepAfterChangePower () {
+		this.powerTimeCounter++;
+	}
 
-	public int getFallingCounter(){ return  this.fallingCounter; }
-
-	public int getCountStepAfterChangePower() { return countStepAfterChangePower; }
-
-	public void setCountStepAfterChangePower() { this.countStepAfterChangePower++; }
-
-	public void resetCountStepAfterChangePower(){this.countStepAfterChangePower = 0;}
+	public void resetCountStepAfterChangePower () {
+		this.powerTimeCounter = 0;
+	}
 
 	public void setPos (Position pos) {
 		this.pos = pos;
 	}
 
-	public void setDir (Direction dir) {
-		this.dir = dir;
-	}
-
-	public boolean build(Map map) throws TileAlreadyExistsException {
+	public boolean build (Map map) throws TileAlreadyExistsException {
 		Tile tDirection = map.getTileInThisDirection(pos, dir);
-		if(tDirection == null){
+		if (tDirection == null) {
 			map.addTile(new Position(dir.WhatIsNextPosition(pos)), TileType.BOX);
 			return true;
 		}
-	return false;
+		return false;
 	}
 }

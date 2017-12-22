@@ -1,6 +1,6 @@
 package main.module.game.level.lemming.powertype;
 
-import main.module.game.level.lemming.state.Power;
+import main.module.game.level.lemming.power.Power;
 
 public enum PowerType {
 	CLIMBER(Power.CLIMBER, "Climber"), PARATROOPER(Power.PARATROOPER, "Paratrooper"),

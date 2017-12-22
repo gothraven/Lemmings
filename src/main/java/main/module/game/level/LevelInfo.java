@@ -1,6 +1,7 @@
 package main.module.game.level;
 
-import main.module.game.level.lemming.state.Power;
+import main.module.game.level.lemming.power.Power;
+import main.module.game.player.Player;
 import main.util.exceptions.InvalideFileException;
 
 import java.io.BufferedReader;
@@ -11,7 +12,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class LevelInfo {
+
 	public static int SPEED_SCALE = 1000, LEM_SHOW_SPEED_MAX = 1000, LEM_SHOW_SPEED_MIN = 1;
+
 	private static int GAME_SPEED_MIN = 1, GAME_SPEED_MAX = 10;
 
 	private int nbLemTotal, nbLemDead, nbLemSaved, nbLemToSave, nbLemInGame;
@@ -22,16 +25,18 @@ public class LevelInfo {
 
 	private boolean won;
 
-	private boolean enPause;
+	private boolean inPause;
 
 	private Map<Power, Integer> powerUps;
 
 	private Power selectedPower;
 
+	private Player player;
+
 	LevelInfo (File file) throws InvalideFileException
 	{
 		this.powerUps = new TreeMap<>();
-		this.enPause = false;
+		this.inPause = false;
 		this.won = false;
 		this.nbLemTotal = 0;
 		this.nbLemDead = 0;
@@ -164,8 +169,12 @@ public class LevelInfo {
 			this.gameSpeed = gameSpeed;
 	}
 
-	public boolean isEnPause() {
-		return enPause;
+	public boolean isInPause () {
+		return inPause;
+	}
+
+	public void setInPause (boolean inPause) {
+		this.inPause = inPause;
 	}
 
 	public Map<Power, Integer> getPowerUps () {
@@ -208,5 +217,13 @@ public class LevelInfo {
 
 	public boolean selectedPowerCanBeUsed () {
 		return powerUps.get(selectedPower) != 0;
+	}
+
+	public Player getPlayer () {
+		return player;
+	}
+
+	public void setPlayer (Player player) {
+		this.player = player;
 	}
 }

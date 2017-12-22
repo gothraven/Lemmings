@@ -1,6 +1,6 @@
 package main.module.game.level.settings;
 
-import main.module.game.level.lemming.state.Power;
+import main.module.game.level.lemming.power.Power;
 
 public class PowerSelector {
 	private static final PowerPerKey[] powerKeys = PowerPerKey.values();
@@ -13,7 +13,7 @@ public class PowerSelector {
 	}
 
 	public static Power selectPower (char keyCode) {
-		Power selectedPower = null;
+		Power selectedPower;
 
 		selectedPower = PowerPerKey.valueOf(Character.toUpperCase(keyCode) + "").getPower();
 		if (selectedPower == null)

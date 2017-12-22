@@ -30,7 +30,7 @@ public enum Direction {
 		if (this.equals(Direction.LEFT))
 			return Direction.UPPERLEFT;
 		else
-			return null;
+			return this; //to privent problems
 	}
 
 	public Direction oppositDirection(Direction dir) {
