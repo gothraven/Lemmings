@@ -9,6 +9,7 @@ import main.util.geometry.Position;
 import main.util.observer.Observer;
 import main.view.level.lemming.GLemming;
 import main.view.level.map.GMap;
+import main.view.level.status.GStatus;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +28,7 @@ public class GamePanel extends JComponent implements Observer {
 	private Level level;
 	private ArrayList<Lemming> lemmings;
 	private Map map;
+	private GStatus status;
 
 	public GamePanel(Dimension panelDimentions)
 	{
@@ -45,6 +47,7 @@ public class GamePanel extends JComponent implements Observer {
 		requestFocus();
 		requestFocusInWindow();
 		this.lemmings = new ArrayList<>();
+		this.status = new GStatus();
 		start = System.currentTimeMillis();
 		int FPS = 3;
 		targetTime = 1000 / FPS;
