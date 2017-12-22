@@ -20,7 +20,7 @@ you can feel free to change add or anything you wish.
 * You have the levels under the resources folder in case you want to modify or create your own levels
 
 ## Screen Shots From The Game ##
-<img align="centre"  src="./sceenshots/screenshot1.png" width="45%"/>
+<img align="centre"  src="sceenshots/screenshot1.png" width="45%"/>
 
 ### Contribution guidelines ###
 
