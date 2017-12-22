@@ -32,12 +32,7 @@ public enum State implements PowerRules {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			Step++;
 			if (Step >=4) {
-				//CHANGE THIS TO A NEW FUNCTION THAT MAKES HIM EXPLOSE, you can create it in the same class
-				try {
-					map.addTile(lem.getPos(), TileType.BOMB);
-				} catch (TileAlreadyExistsException e) {
-					e.printStackTrace();
-				}
+				explode(lem,map,lems);
 			}
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null)
@@ -54,6 +49,36 @@ public enum State implements PowerRules {
 		/*
 		* void explode(lem, map, lems) -> explode
 		* */
+		private  void explode (Lemming lem , Map map ,ArrayList<Lemming> lems){
+			int x = lem.getPos().getX(), y = lem.getPos().getY();
+			ArrayList<Position> positions = new ArrayList<>();
+			positions.add(new Position(x - 1, y - 1));
+			positions.add(new Position(x, y - 1));
+			positions.add(new Position(x + 1, y - 1));
+			positions.add(new Position(x - 1, y));
+			positions.add(new Position(x + 1, y));
+			positions.add(new Position(x - 1, y + 1));
+			positions.add(new Position(x, y + 1));
+			positions.add(new Position(x + 1, y + 1));
+
+			for (Position p : positions) {
+				Tile t = map.getTile(p);
+				if (t != null)
+					if (t.getType().isDestructible())
+						map.removeTile(p);
+
+			}
+
+			map.removeTile(lem.getPos());
+
+			for (Position p : positions) {
+				for (Lemming l : lems) {
+					if (l.getPos().equals(p))
+						l.kill();
+				}
+			}
+			lem.kill();
+		}
 	},
 	BLOCKER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {

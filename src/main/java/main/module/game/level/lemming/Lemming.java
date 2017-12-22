@@ -19,6 +19,7 @@ public class Lemming {
 	private boolean saved;
 	private int fallingCounter;
 
+
 	public Lemming (Position pos) {
 		this(pos, Direction.RIGHT);
 	}
@@ -41,6 +42,15 @@ public class Lemming {
 
 	public void changePower (State state) {
 		//TODO implement the change
+		if (power == State.BLOCKER & state == State.BOMBER) {
+			power = state;
+			return;
+		}
+		if (power != State.BLOCKER && power != State.BOMBER) {
+			power = state;
+			return;
+		}
+
 	}
 
 	public boolean isAlive () {

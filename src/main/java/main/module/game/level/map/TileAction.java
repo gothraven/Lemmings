@@ -64,6 +64,7 @@ public enum TileAction implements PowerRules {
 				if (t != null)
 					if (t.getType().isDestructible())
 						map.removeTile(p);
+
 			}
 
 			map.removeTile(lem.getPos());
