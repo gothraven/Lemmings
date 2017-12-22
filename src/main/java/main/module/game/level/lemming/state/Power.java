@@ -18,8 +18,8 @@ public enum Power implements PowerRules {
  	int a = 0;
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			a++;
-			if (a == 20){
-				lem.changePower(Power.DIGGER);
+			if (a == 5){
+				lem.changePower(Power.MINER);
 			}
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null && tile.getType() !=  TileType.ENTER) {
@@ -115,8 +115,6 @@ public enum Power implements PowerRules {
 		}
 	},
 	DIGGER {
-
-
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			if (lem.getCountStepAfterChangePower() == 0){
 				Tile tile = map.getTile(lem.getPos());
@@ -131,6 +129,7 @@ public enum Power implements PowerRules {
 				if (t.getType().isDestructible()){
 					lem.setCountStepAfterChangePower();
 					map.removeTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
+					lem.setPos(Direction.DOWN.WhatIsNextPosition(lem.getPos()));
 					return;
 				}
 				if (lem.walk(map, lems))
@@ -140,14 +139,17 @@ public enum Power implements PowerRules {
 				lem.oppositDirection();
 			}else{
 				Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
-					if (t.getType().isDestructible()){
+				if(t!=null) {
+					if (t.getType().isDestructible()) {
 						lem.setCountStepAfterChangePower();
 						map.removeTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
-						lem.setPos(new Position(lem.getPos().getX()+Direction.DOWN.getXdir(),lem.getPos().getY()+Direction.DOWN.getYdir()));
-					}else {
+						lem.setPos(Direction.DOWN.WhatIsNextPosition(lem.getPos()));
+					} else {
 						lem.changePower(Power.WALKER);
 					}
-
+				}else{
+					lem.changePower(Power.WALKER);
+				}
 				if (lem.getCountStepAfterChangePower() >=5)
 					lem.changePower(Power.WALKER);
 			}
@@ -155,41 +157,44 @@ public enum Power implements PowerRules {
 		}
 	},
 	MINER {
-		private boolean startMiner = false;
-		private void shouldStartMiner(Map map ,Lemming lem){
+		private boolean Miner(Lemming lem , Map map){
 			Tile t = map.getTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
-			if (t.getType().isDestructible()){
-				startMiner = true;
+
+			if (t!= null){
+				if (t.getType().isDestructible()){
+					map.removeTile(t.getPosition());
+					lem.setPos(t.getPosition());
+					lem.setCountStepAfterChangePower();
+				}else{
+					lem.changePower(Power.WALKER);
+					return false;
+				}
+				return true;
 			}
-		}
-		private void miner(Map map ,Lemming lem){
-			Tile t = map.getTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
-			if (t.getType().isDestructible()){
-				map.removeTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
-			}else{
-				lem.changePower(Power.WALKER);
-			}
+			return false;
 		}
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-
-			Tile tile = map.getTile(lem.getPos());
-			if (tile != null && tile.getType() !=  TileType.ENTER) {
-				tile.action(lem, map, lems);
-				return;
+			if (lem.getCountStepAfterChangePower()==0){
+				Tile t = map.getTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
+				Tile tile = map.getTile(lem.getPos());
+				if (tile != null && tile.getType() !=  TileType.ENTER) {
+					tile.action(lem, map, lems);
+					return;
+				}
+				if (lem.fall(map))
+					return;
+				if (lem.walk(map, lems))
+					return;
+				if(Miner(lem, map))
+					return;
+				if (lem.jump(map))
+					return;
+				lem.oppositDirection();
+			}else{
+				if (Miner(lem, map))
+					return;
+				lem.changePower(Power.WALKER);
 			}
-			shouldStartMiner(map,lem);
-			if (lem.fall(map)){
-				if (startMiner)
-					lem.changePower(Power.WALKER);
-				return;
-			}
-			if (startMiner)
-				miner(map,lem);
-			if (lem.walk(map, lems))
-				return;
-			if (lem.jump(map))
-				return;
-			lem.oppositDirection();
 		}
 	},
 	PARATROOPER {
