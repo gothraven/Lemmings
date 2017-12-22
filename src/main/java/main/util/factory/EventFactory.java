@@ -10,6 +10,7 @@ import main.util.observebale.Observable;
 import java.util.ArrayList;
 
 public class EventFactory {
+	public static int GAMESTART = 0;
 	public static int LEVELSTART = 1;
 	public static int GAMEEND = 2;
 
@@ -20,7 +21,8 @@ public class EventFactory {
 			event = GameEvent.LEVELSTART;
 		else if (eventID == GAMEEND)
 			event = GameEvent.GAMEEND;
-
+		else if (eventID == GAMESTART)
+			event = GameEvent.GAMESTART;
 		if (event != null)
 			event.setObservable(observable);
 

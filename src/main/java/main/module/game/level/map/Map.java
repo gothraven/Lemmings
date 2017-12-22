@@ -83,6 +83,13 @@ public class Map {
 		}
 	}
 
+	public Map(Map map) {
+		this.enterPos = new Position(map.getEnterPos());
+		this.exitPos = new Position(map.getExitPos());
+		this.map = new HashMap<>();
+		this.map.putAll(map.getMap());
+	}
+
 	public Position teleport(Position p) {
 		Set<Position> positions = this.map.keySet();
 		for (Position position : positions) {

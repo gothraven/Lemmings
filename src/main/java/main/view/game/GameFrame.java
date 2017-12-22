@@ -1,19 +1,24 @@
 package main.view.game;
 
 import main.module.event.game.GameEvent;
+import main.module.game.Game;
 import main.module.game.level.Level;
 import main.util.event.Event;
 import main.util.factory.EventFactory;
 import main.util.observebale.Observable;
 import main.util.observer.Observer;
 import main.view.level.GamePanel;
+import main.view.level.action.PowerPerKey;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GameFrame implements Observer {
 
 	private JFrame window;
 	private GamePanel gameView;
+	private Game game;
 
 	public GameFrame() {
 		window = new JFrame("Lemmings");
@@ -26,31 +31,36 @@ public class GameFrame implements Observer {
 		window.setLocation(200, 100);
 		window.setResizable(false);
 		window.setVisible(true);
-		window.requestFocus();
+		window.pack();
+		window.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed (KeyEvent e) {
+				super.keyPressed(e);
+				if (game != null)
+					PowerPerKey.valueOf(Character.toUpperCase(e.getKeyChar())+"");
+			}
+		});
 	}
 
 	public void show() {
-		gameView.display();
+		if (gameView != null)
+			gameView.display();
 	}
 
 	public void end() {
 		window.dispose();
-		/*if (game.getLevel().getInfo().isWon())
-			JOptionPane.showMessageDialog(null, "YOU WON", "Level end", 1);
-		else
-			JOptionPane.showMessageDialog(null, "YOU LOST", "Level end", 0);*/
 	}
 
 	public GamePanel getGameView() {
 		return gameView;
 	}
 
-	/*public void showHelp() {
-		gameView.showHelp();
-	}*/
-
 	public void update (GameEvent e) {
-		if (e.getID() == EventFactory.LEVELSTART) {
+		if (e.getID() == EventFactory.GAMESTART) {
+			Observable o = e.getObservable();
+			if (o.getClass() == Game.class)
+				this.game = (Game)o;
+		} else if (e.getID() == EventFactory.LEVELSTART) {
 			Observable o = e.getObservable();
 			if (o.getClass() == Level.class) {
 				Level level = (Level)o;
@@ -59,7 +69,7 @@ public class GameFrame implements Observer {
 				this.window.pack();
 				level.registerObserver(this.gameView);
 			}
-		}else if (e.getID() == EventFactory.GAMEEND) {
+		} else if (e.getID() == EventFactory.GAMEEND) {
 			this.end();
 		}
 	}

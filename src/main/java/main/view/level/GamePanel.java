@@ -10,8 +10,6 @@ import main.view.level.map.GMap;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -26,7 +24,6 @@ public class GamePanel extends JComponent implements Observer {
 
 	private ArrayList<Lemming> lemmings;
 	private Map map;
-	private String status;
 
 	public GamePanel(Dimension panelDimentions)
 	{
@@ -34,23 +31,17 @@ public class GamePanel extends JComponent implements Observer {
 		int height = (int) panelDimentions.getHeight();
 		setPreferredSize(new Dimension(width * SCALE, height * SCALE +  STATUS_HEIGHT));
 
-		addKeyListener(new KeyAdapter() {
-			public void keyPressed (KeyEvent e) {
-				System.out.println("test" + e.getKeyCode());
-			}
-		});
-
-		//processKeyBinding()
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println(e.getX() + ", " + e.getY());
+
 			}
 		});
+
 		setFocusable(true);
 		requestFocus();
 		requestFocusInWindow();
 		this.lemmings = new ArrayList<>();
-		this.status = "you have selected : ";
 		start = System.currentTimeMillis();
 		int FPS = 7;
 		targetTime = 1000 / FPS;
@@ -71,8 +62,7 @@ public class GamePanel extends JComponent implements Observer {
 	}
 
 	public void update(LevelEvent event) {
-
-		map = event.getMap();
+		map = new Map(event.getMap());
 		lemmings = event.getLemmings();
 		//updateStatus(event);
 

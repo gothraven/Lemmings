@@ -49,6 +49,8 @@ public class Game implements Observable {
 	}
 
 	public void start () {
+		GameEvent e = EventFactory.createEvent(this, EventFactory.GAMESTART);
+		notifyObeservers(e);
 		if (!levels.isEmpty()) {
 			this.level = LevelFactory.createLevel(this, levels.poll());
 			GameEvent event = EventFactory.createEvent(level, EventFactory.LEVELSTART);

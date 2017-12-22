@@ -32,6 +32,7 @@ public enum State implements PowerRules {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			Step++;
 			if (Step >=4) {
+				//CHANGE THIS TO A NEW FUNCTION THAT MAKES HIM EXPLOSE, you can create it in the same class
 				try {
 					map.addTile(lem.getPos(), TileType.BOMB);
 				} catch (TileAlreadyExistsException e) {
@@ -49,6 +50,10 @@ public enum State implements PowerRules {
 				return;
 			lem.oppositDirection();
 		}
+
+		/*
+		* void explode(lem, map, lems) -> explode
+		* */
 	},
 	BLOCKER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
