@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class LevelInfo {
-	private static int SPEED_SCALE = 1000, LEM_SHOW_SPEED_MAX = 1000, LEM_SHOW_SPEED_MIN = 1;
+	public static int SPEED_SCALE = 1000, LEM_SHOW_SPEED_MAX = 1000, LEM_SHOW_SPEED_MIN = 1;
 	private static int GAME_SPEED_MIN = 1, GAME_SPEED_MAX = 10;
 
 	private int nbLemTotal, nbLemDead, nbLemSaved, nbLemToSave, nbLemInGame;
