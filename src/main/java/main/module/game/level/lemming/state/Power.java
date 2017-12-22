@@ -13,9 +13,9 @@ import main.util.power.PowerRules;
 import java.util.ArrayList;
 
 public enum Power implements PowerRules {
-
 	WALKER {
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
+
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
@@ -199,11 +199,11 @@ public enum Power implements PowerRules {
 		private boolean fly(Map map ,Lemming lem) {
 			Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
 			if (t == null || t.getType().canBeIn()) {
-				if (imFlying) {
+				if ((lem.getCountStepAfterChangePower() %2)==0) {
 					lem.fly(map);
-					imFlying = false;
+					lem.setCountStepAfterChangePower();
 				} else {
-					imFlying = true;
+					lem.resetCountStepAfterChangePower();
 				}
 				return true;
 			}else{

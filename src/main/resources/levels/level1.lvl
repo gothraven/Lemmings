@@ -1,7 +1,7 @@
 lemmingspeed	300
 gamespeed	2
 time	120
-number	1
+number	4
 tosave	4
 climber	10
 paratrooper	10
@@ -12,7 +12,7 @@ digger	10
 miner	10
 map
 -------------------------------
--0                           @-
+-0          +                @-
 -           ---------------+---
 -          ----------------  --
 -+       ------------------+--
