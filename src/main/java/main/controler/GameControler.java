@@ -14,7 +14,7 @@ public class GameControler {
 	{
 		String player = JOptionPane.showInputDialog("What is your name?");
 		if (player == null || player.isEmpty())
-			player = "test";
+			player = "Unknown";
 		game = new Game(player);
 		window = new GameFrame();
 		game.registerObserver(window);

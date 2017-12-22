@@ -103,11 +103,12 @@ public class Level implements Observable {
 				}
 
 				if (this.lemShowCt == this.info.getNbLemTotal() & this.info.getNbLemInGame() == 0) {
-					this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), this.info.getGameTime());
 					if (info.getNbLemSaved() >= info.getNbLemToSave()) {
+						this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), this.info.getGameTime());
 						this.info.setWon(true);
 						this.game.nextLevel();
 					} else {
+						this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), 0);
 						this.info.setWon(false);
 						this.game.gameOver();
 					}

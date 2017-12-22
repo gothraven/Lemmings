@@ -1,6 +1,5 @@
 package main.module.game.player;
 
-import main.module.game.level.lemming.state.Power;
 
 public class Player {
 
@@ -9,7 +8,6 @@ public class Player {
 
 	private String name;
 	private long score;
-	private Power selectedPower;
 
 	public Player (String name) {
 		this(name, 0);
@@ -18,7 +16,6 @@ public class Player {
 	public Player (String name, long score) {
 		this.name = name;
 		this.score = score;
-		this.selectedPower = null;
 	}
 
 	public String getName () {
@@ -27,11 +24,6 @@ public class Player {
 
 	public void scoreUP(int nbLemmingsSaved, int timeLeftTillEnd) {
 		this.score = (nbLemmingsSaved * SCORE_PER_LEM) + (timeLeftTillEnd * SCORE_PER_SEC);
-	}
-
-	public void changePower (Power selectedPower) {
-		System.out.println(selectedPower.name());
-		this.selectedPower = selectedPower;
 	}
 
 	public long getScore () {
