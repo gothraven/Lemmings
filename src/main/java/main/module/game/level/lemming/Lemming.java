@@ -18,6 +18,7 @@ public class Lemming {
 	private boolean alive;
 	private boolean saved;
 	private int fallingCounter;
+	private int countStepAfterChangePower=0 ;
 
 
 	public Lemming (Position pos) {
@@ -25,7 +26,7 @@ public class Lemming {
 	}
 
 	public Lemming (Position pos, Direction dir) {
-		this(pos, dir, State.WALKER);
+		this(pos, dir, State.CLIMBER);
 	}
 
 	public Lemming (Position pos, Direction dir, State power) {
@@ -44,10 +45,12 @@ public class Lemming {
 		//TODO implement the change
 		if (power == State.BLOCKER & state == State.BOMBER) {
 			power = state;
+			countStepAfterChangePower = 0 ;
 			return;
 		}
 		if (power != State.BLOCKER && power != State.BOMBER) {
 			power = state;
+			countStepAfterChangePower = 0 ;
 			return;
 		}
 
@@ -124,6 +127,9 @@ public class Lemming {
 		}
 		return false;
 	}
+
+
+
 	public boolean climb (Map map) {
 
 		Tile upperTile = map.getTile(Direction.UP.WhatIsNextPosition(pos));
@@ -150,8 +156,16 @@ public class Lemming {
 	public void resetFallingCounter () {
 		this.fallingCounter = 0;
 	}
+
 	public void fallingCounter(){ this.fallingCounter++; }
+
 	public int getFallingCounter(){ return  this.fallingCounter; }
+
+	public int getCountStepAfterChangePower() { return countStepAfterChangePower; }
+
+	public void setCountStepAfterChangePower() { this.countStepAfterChangePower++; }
+
+	public void resetCountStepAfterChangePower(){this.countStepAfterChangePower = 0;}
 
 	public void setPos (Position pos) {
 		this.pos = pos;
@@ -160,6 +174,7 @@ public class Lemming {
 	public void setDir (Direction dir) {
 		this.dir = dir;
 	}
+
 	public boolean build(Map map) throws TileAlreadyExistsException {
 		Tile tDirection = map.getTileInThisDirection(pos, dir);
 		if(tDirection == null){
