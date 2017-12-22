@@ -3,6 +3,7 @@ package main.module.game.level.lemming.state;
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
 import main.module.game.level.map.Tile;
+import main.module.game.level.map.TileType;
 import main.util.exceptions.TileAlreadyExistsException;
 import main.util.geometry.Direction;
 import main.util.geometry.Position;
@@ -27,8 +28,26 @@ public enum State implements PowerRules {
 		}
 	},
 	BOMBER {
+		private int Step = 0;
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-
+			Step++;
+			if (Step >=4) {
+				try {
+					map.addTile(lem.getPos(), TileType.BOMB);
+				} catch (TileAlreadyExistsException e) {
+					e.printStackTrace();
+				}
+			}
+			Tile tile = map.getTile(lem.getPos());
+			if (tile != null)
+				tile.action(lem, map, lems);
+			if (lem.fall(map))
+				return;
+			if (lem.walk(map, lems))
+				return;
+			if (lem.jump(map))
+				return;
+			lem.oppositDirection();
 		}
 	},
 	BLOCKER {

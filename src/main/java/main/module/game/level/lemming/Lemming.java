@@ -24,7 +24,7 @@ public class Lemming {
 	}
 
 	public Lemming (Position pos, Direction dir) {
-		this(pos, dir, State.PARATROOPER);
+		this(pos, dir, State.BOMBER);
 	}
 
 	public Lemming (Position pos, Direction dir, State power) {
