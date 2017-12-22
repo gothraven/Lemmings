@@ -1,5 +1,6 @@
 package main.module.game.level.lemming;
 
+import junit.framework.Test;
 import main.module.game.level.lemming.state.Power;
 import main.module.game.level.map.Map;
 import main.module.game.level.map.Tile;
@@ -134,7 +135,7 @@ public class Lemming {
 	public boolean climb (Map map) {
 
 		Tile upperTile = map.getTile(Direction.UP.WhatIsNextPosition(pos));
-		if ( upperTile == null) {
+		if ( upperTile == null || upperTile.getType() == TileType.EXIT) {
 			pos = Direction.UP.WhatIsNextPosition(pos);
 			return true;
 		}
