@@ -1,6 +1,7 @@
 package main.view.level;
 
 import main.module.event.level.LevelEvent;
+import main.module.game.level.Level;
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
 import main.util.event.Event;
@@ -22,6 +23,7 @@ public class GamePanel extends JComponent implements Observer {
 	private long start;
 	private long targetTime;
 
+	private Level level;
 	private ArrayList<Lemming> lemmings;
 	private Map map;
 
@@ -33,7 +35,6 @@ public class GamePanel extends JComponent implements Observer {
 
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				System.out.println(e.getX() + ", " + e.getY());
 
 			}
 		});
@@ -63,8 +64,8 @@ public class GamePanel extends JComponent implements Observer {
 
 	public void update(LevelEvent event) {
 		map = new Map(event.getMap());
-		lemmings = event.getLemmings();
-		//updateStatus(event);
+		lemmings.clear();
+		lemmings.addAll(event.getLemmings());
 
 		long elapsed = System.currentTimeMillis() - start;
 		long wait =  targetTime - elapsed / 1000000;
@@ -84,4 +85,7 @@ public class GamePanel extends JComponent implements Observer {
 			update((LevelEvent)e);
 	}
 
+	public void setLevel (Level level) {
+		this.level = level;
+	}
 }

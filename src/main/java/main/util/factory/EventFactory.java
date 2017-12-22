@@ -25,7 +25,6 @@ public class EventFactory {
 			event = GameEvent.GAMESTART;
 		if (event != null)
 			event.setObservable(observable);
-
 		return event;
 	}
 

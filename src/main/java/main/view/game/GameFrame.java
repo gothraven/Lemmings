@@ -37,7 +37,8 @@ public class GameFrame implements Observer {
 			public void keyPressed (KeyEvent e) {
 				super.keyPressed(e);
 				if (game != null)
-					PowerPerKey.valueOf(Character.toUpperCase(e.getKeyChar())+"");
+					game.getPlayer().changePower(PowerPerKey.valueOf(Character.toUpperCase(e.getKeyChar())+"").getPower());
+				//gonna try fix this later
 			}
 		});
 	}
@@ -65,6 +66,7 @@ public class GameFrame implements Observer {
 			if (o.getClass() == Level.class) {
 				Level level = (Level)o;
 				this.gameView = new GamePanel(level.getMapDimensions());
+				this.gameView.setLevel(level);
 				this.window.setContentPane(gameView);
 				this.window.pack();
 				level.registerObserver(this.gameView);
