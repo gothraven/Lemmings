@@ -1,27 +1,27 @@
 package main.module.game.level.lemming.powertype;
 
-import main.module.game.level.lemming.state.State;
+import main.module.game.level.lemming.state.Power;
 
 public enum PowerType {
-	CLIMBER(State.CLIMBER,"Climber"), PARATROOPER(State.PARATROOPER,"Paratrooper"),
-	BLOCKER(State.BLOCKER,"Blocker"), BOMBER(State.BOMBER, "Bomber"),
-	BUILDER(State.BUILDER, "Builder"), DIGGER(State.DIGGER, "Digger"),
-	MINER(State.MINER, "Miner");
+	CLIMBER(Power.CLIMBER, "Climber"), PARATROOPER(Power.PARATROOPER, "Paratrooper"),
+	BLOCKER(Power.BLOCKER, "Blocker"), BOMBER(Power.BOMBER, "Bomber"),
+	BUILDER(Power.BUILDER, "Builder"), DIGGER(Power.DIGGER, "Digger"),
+	MINER(Power.MINER, "Miner");
 
 	private String name;
-	private State state;
+	private Power power;
 
-	PowerType (State state, String name) {
+	PowerType (Power power, String name) {
 		this.name = name;
-		this.state = state;
+		this.power = power;
 	}
 
 	public String getName () {
 		return name;
 	}
 
-	public State getState () {
-		return state;
+	public Power getPower () {
+		return power;
 	}
 }
 

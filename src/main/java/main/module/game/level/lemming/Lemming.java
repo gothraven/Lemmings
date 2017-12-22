@@ -1,6 +1,6 @@
 package main.module.game.level.lemming;
 
-import main.module.game.level.lemming.state.State;
+import main.module.game.level.lemming.state.Power;
 import main.module.game.level.map.Map;
 import main.module.game.level.map.Tile;
 import main.module.game.level.map.TileType;
@@ -14,7 +14,7 @@ public class Lemming {
 	public static int MAX_HEIGHT = 5;
 	private Position pos;
 	private Direction dir;
-	private State power;
+	private Power power;
 	private boolean alive;
 	private boolean saved;
 	private int fallingCounter;
@@ -26,10 +26,10 @@ public class Lemming {
 	}
 
 	public Lemming (Position pos, Direction dir) {
-		this(pos, dir, State.CLIMBER);
+		this(pos, dir, Power.CLIMBER);
 	}
 
-	public Lemming (Position pos, Direction dir, State power) {
+	public Lemming (Position pos, Direction dir, Power power) {
 		this.pos = new Position(pos);
 		this.dir = dir;
 		this.power = power;
@@ -41,15 +41,15 @@ public class Lemming {
 		this.power.action(this, map, lems);
 	}
 
-	public void changePower (State state) {
+	public void changePower (Power power) {
 		//TODO implement the change
-		if (power == State.BLOCKER & state == State.BOMBER) {
-			power = state;
+		if (this.power == Power.BLOCKER & power == Power.BOMBER) {
+			this.power = power;
 			countStepAfterChangePower = 0 ;
 			return;
 		}
-		if (power != State.BLOCKER && power != State.BOMBER) {
-			power = state;
+		if (this.power != Power.BLOCKER && this.power != Power.BOMBER) {
+			this.power = power;
 			countStepAfterChangePower = 0 ;
 			return;
 		}
@@ -84,7 +84,7 @@ public class Lemming {
 		return pos;
 	}
 
-	public State getPower () {
+	public Power getPower () {
 		return power;
 	}
 
@@ -113,7 +113,7 @@ public class Lemming {
 	private boolean blockerInTheWay(ArrayList<Lemming> lems) {
 		Position p = dir.WhatIsNextPosition(pos);
 		for(Lemming l : lems)
-			if (l.pos.equals(p) && l.power == State.BLOCKER)
+			if (l.pos.equals(p) && l.power == Power.BLOCKER)
 				return true;
 		return false;
 	}

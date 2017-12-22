@@ -11,7 +11,7 @@ import main.util.power.PowerRules;
 
 import java.util.ArrayList;
 
-public enum State implements PowerRules {
+public enum Power implements PowerRules {
 
 	WALKER {
 
@@ -55,7 +55,7 @@ public enum State implements PowerRules {
 
 		private  void explode (Lemming lem , Map map ,ArrayList<Lemming> lems){
 
-			State.BOMBER.action(lem,map,lems);
+			Power.BOMBER.action(lem, map, lems);
 
 
 		}
@@ -77,13 +77,13 @@ public enum State implements PowerRules {
 					lem.setCountStepAfterChangePower();
 					return;
 				}else {
-					lem.changePower(State.WALKER);
+					lem.changePower(Power.WALKER);
 				}
 			} catch (TileAlreadyExistsException e) {
 				e.printStackTrace();
 			}
 			if (lem.getCountStepAfterChangePower() >=6) {
-				lem.changePower(State.WALKER);
+				lem.changePower(Power.WALKER);
 				return;
 			}
 			lem.jump(map);
@@ -127,7 +127,7 @@ public enum State implements PowerRules {
 				return true;
 			}
 			if (step >=6)
-				lem.changePower(State.WALKER);
+				lem.changePower(Power.WALKER);
 			return false;
 		}
 
@@ -142,7 +142,7 @@ public enum State implements PowerRules {
 			if (lem.fall(map))
 				return;
 			if (allStep-step>=1)
-				lem.changePower(State.WALKER);
+				lem.changePower(Power.WALKER);
 			if( digger(map,lem))
 				return;
 			if (lem.walk(map, lems))
@@ -165,7 +165,7 @@ public enum State implements PowerRules {
 			if (t.getType().isDestructible()){
 				map.removeTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
 			}else{
-				lem.changePower(State.WALKER);
+				lem.changePower(Power.WALKER);
 			}
 		}
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
@@ -178,7 +178,7 @@ public enum State implements PowerRules {
 			shouldStartMiner(map,lem);
 			if (lem.fall(map)){
 				if (startMiner)
-					lem.changePower(State.WALKER);
+					lem.changePower(Power.WALKER);
 				return;
 			}
 			if (startMiner)

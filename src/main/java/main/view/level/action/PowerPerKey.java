@@ -1,21 +1,21 @@
 package main.view.level.action;
 
 
-import main.module.game.level.lemming.state.State;
+import main.module.game.level.lemming.state.Power;
 
 public enum PowerPerKey {
-	A(State.BLOCKER), Z(State.BOMBER), E(State.BUILDER),
-	Q(State.CLIMBER), S(State.DIGGER), D(State.MINER),
-	W(State.PARATROOPER);
+	A(Power.BLOCKER), Z(Power.BOMBER), E(Power.BUILDER),
+	Q(Power.CLIMBER), S(Power.DIGGER), D(Power.MINER),
+	W(Power.PARATROOPER);
 
 
-	State power;
+	Power power;
 
-	PowerPerKey (State power) {
+	PowerPerKey (Power power) {
 		this.power = power;
 	}
 
-	public State getPower () {
+	public Power getPower () {
 		return power;
 	}
 }
