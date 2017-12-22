@@ -32,9 +32,7 @@ public class HallOfFame {
 	}
 
 	private boolean isHighScore (long score) {
-		if (database.empty())
-			return true;
-		return database.peek().getScore() < score;
+		return database.empty() || database.peek().getScore() < score;
 	}
 
 	public Stack<Player> getDatabase () {
