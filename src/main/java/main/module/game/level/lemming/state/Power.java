@@ -15,12 +15,7 @@ import java.util.ArrayList;
 public enum Power implements PowerRules {
 
 	WALKER {
- 	int a = 0;
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-			a++;
-			if (a == 5){
-				lem.changePower(Power.MINER);
-			}
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
@@ -166,7 +161,9 @@ public enum Power implements PowerRules {
 					lem.setPos(t.getPosition());
 					lem.setCountStepAfterChangePower();
 				}else{
-					lem.changePower(Power.WALKER);
+					//lem.changePower(Power.WALKER);
+					System.out.println("ok");
+
 					return false;
 				}
 				return true;
@@ -174,7 +171,7 @@ public enum Power implements PowerRules {
 			return false;
 		}
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-			if (lem.getCountStepAfterChangePower()==0){
+			if (lem.getCountStepAfterChangePower()== 0){
 				Tile t = map.getTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
 				Tile tile = map.getTile(lem.getPos());
 				if (tile != null && tile.getType() !=  TileType.ENTER) {
