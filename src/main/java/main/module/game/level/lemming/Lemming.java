@@ -68,7 +68,6 @@ public class Lemming {
 		}
 		return false;
 	}
-
 	public boolean walk (Map map, ArrayList<Lemming> lems) {
 		Tile tDirection = map.getTileInThisDirection(pos, dir);
 		if ((tDirection == null || tDirection.getType().canBeIn()) && blockerInTheWay(lems)) {

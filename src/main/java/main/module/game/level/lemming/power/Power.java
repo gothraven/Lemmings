@@ -166,7 +166,6 @@ public enum Power implements PowerRules {
 		}
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			if (lem.getPowerTimeCounter() == 0) {
-				Tile t = map.getTile(new Position(lem.getDir().WhatIsNextPosition(lem.getPos())));
 				Tile tile = map.getTile(lem.getPos());
 				if (tile != null && tile.getType() !=  TileType.ENTER) {
 					tile.action(lem, map, lems);
@@ -189,7 +188,6 @@ public enum Power implements PowerRules {
 		}
 	},
 	PARATROOPER {
-		private boolean imFlying = false;
 		private boolean fly(Map map ,Lemming lem) {
 			Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
 			if (t == null || t.getType().canBeIn()) {
