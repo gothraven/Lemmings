@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class LevelInfo {
-	public static int SPEED_SCALE = 1000, LEM_SHOW_SPEED_MAX = 1000, LEM_SHOW_SPEED_MIN = 1;
-	public static int GAME_SPEED_MIN = 1, GAME_SPEED_MAX = 10;
+	private static int SPEED_SCALE = 1000, LEM_SHOW_SPEED_MAX = 1000, LEM_SHOW_SPEED_MIN = 1;
+	private static int GAME_SPEED_MIN = 1, GAME_SPEED_MAX = 10;
 
 	private int nbLemTotal, nbLemDead, nbLemSaved, nbLemToSave, nbLemInGame;
 
@@ -30,7 +30,7 @@ public class LevelInfo {
 
 	LevelInfo (File file) throws InvalideFileException
 	{
-		this.powerUps = new TreeMap<Power, Integer>();
+		this.powerUps = new TreeMap<>();
 		this.enPause = false;
 		this.won = false;
 		this.nbLemTotal = 0;
@@ -103,18 +103,11 @@ public class LevelInfo {
 	}
 
 	private boolean verify_data() {
-		/*
-		 * TODO find all the conditions that shouldn't exist in a level file
-		 */
-		return (true);
+		return gameTime > 0 && nbLemTotal > 0 && nbLemSaved <= nbLemTotal;
 	}
 
 	public int getNbLemTotal() {
 		return nbLemTotal;
-	}
-
-	public void setNbLemTotal(int nbLemTotal) {
-		this.nbLemTotal = nbLemTotal;
 	}
 
 	public int getNbLemDead() {
@@ -135,10 +128,6 @@ public class LevelInfo {
 
 	public int getNbLemToSave() {
 		return nbLemToSave;
-	}
-
-	public void setNbLemToSave(int nbLemToSave) {
-		this.nbLemToSave = nbLemToSave;
 	}
 
 	public int getNbLemInGame() {
@@ -175,20 +164,8 @@ public class LevelInfo {
 			this.gameSpeed = gameSpeed;
 	}
 
-	public int getTimeToSave() {
-		return timeToSave;
-	}
-
-	public void setTimeToSave(int timeToSave) {
-		this.timeToSave = timeToSave;
-	}
-
 	public boolean isEnPause() {
 		return enPause;
-	}
-
-	public void setEnPause(boolean enPause) {
-		this.enPause = enPause;
 	}
 
 	public Map<Power, Integer> getPowerUps () {
@@ -201,14 +178,6 @@ public class LevelInfo {
 
 	public void setGameTime(int gameTime) {
 		this.gameTime = gameTime;
-	}
-
-	public void addNezLemInGame () {
-		this.nbLemInGame += 1;
-	}
-
-	public boolean isWon() {
-		return won;
 	}
 
 	public void setWon(boolean won) {

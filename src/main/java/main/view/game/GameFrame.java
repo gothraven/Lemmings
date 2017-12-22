@@ -46,7 +46,7 @@ public class GameFrame implements Observer {
 			gameView.display();
 	}
 
-	public void end() {
+	private void end () {
 		String highScores = "";
 		for (Player player : game.getHallOfFame().getDatabase())
 			highScores += player.toString() + System.getProperty("line.separator");
@@ -54,7 +54,7 @@ public class GameFrame implements Observer {
 		window.dispose();
 	}
 
-	public void update (GameEvent e) {
+	private void update (GameEvent e) {
 		if (e.getID() == EventFactory.GAMESTART) {
 			Observable o = e.getObservable();
 			if (o.getClass() == Game.class)
