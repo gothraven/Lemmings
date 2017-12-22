@@ -20,7 +20,7 @@ you can feel free to change add or anything you wish.
 * You have the levels under the resources folder in case you want to modify or create your own levels
 
 ## Screen Shots From The Game ##
-<img align="centre"  src="sceenshots/screenshot1.png" width="45%"/>
+!(screenshot)(https://bitbucket.org/GothRaven/lemmings/src/e5023b00410e5255b4b9f9354d8cb609d6d05b37/screenshots/screenshot1.png?at=master&fileviewer=file-view-default)
 
 ### Contribution guidelines ###
 
