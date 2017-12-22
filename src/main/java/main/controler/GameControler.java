@@ -3,6 +3,8 @@ package main.controler;
 import main.module.game.Game;
 import main.view.game.GameFrame;
 
+import javax.swing.*;
+
 public class GameControler {
 
 	private Game game;
@@ -10,8 +12,7 @@ public class GameControler {
 
 	public GameControler()
 	{
-		//String player = JOptionPane.showInputDialog("What is your name");
-		String player = "test";
+		String player = JOptionPane.showInputDialog("What is your name?");
 		if (player == null || player.isEmpty())
 			player = "test";
 		game = new Game(player);
@@ -22,7 +23,6 @@ public class GameControler {
 		{
 			run();
 		}
-		this.window.end();
 	}
 
 	private void run() {

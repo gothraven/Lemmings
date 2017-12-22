@@ -4,10 +4,10 @@ package main.module.game;
 import main.module.event.game.GameEvent;
 import main.module.game.halloffame.HallOfFame;
 import main.module.game.level.Level;
-import main.util.factory.EventFactory;
-import main.util.factory.LevelFactory;
 import main.module.game.player.Player;
 import main.util.event.Event;
+import main.util.factory.EventFactory;
+import main.util.factory.LevelFactory;
 import main.util.observebale.Observable;
 import main.util.observer.Observer;
 
@@ -102,8 +102,7 @@ public class Game implements Observable {
 	}
 
 	public void gameOver() {
-		//TODO this.hallOfFame.addPlayer(this.player);
-		System.out.println(player);
+		this.hallOfFame.addPlayer(this.player);
 		this.end();
 	}
 
@@ -111,6 +110,10 @@ public class Game implements Observable {
 		this.on = false;
 		GameEvent event = EventFactory.createEvent(this, EventFactory.GAMEEND);
 		notifyObeservers(event);
+	}
+
+	public HallOfFame getHallOfFame () {
+		return hallOfFame;
 	}
 }
 

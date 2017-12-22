@@ -3,7 +3,6 @@ package main.module.game.level;
 import main.module.event.level.LevelEvent;
 import main.module.game.Game;
 import main.module.game.level.lemming.Lemming;
-import main.module.game.level.lemming.state.Power;
 import main.module.game.level.map.Map;
 import main.module.game.level.settings.PowerSelector;
 import main.util.event.Event;
@@ -31,7 +30,6 @@ public class Level implements Observable {
 	private Dimension mapDimensions;
 	private Timer timer;
 	private int lemShowSpeedCt, gameSpeedCt, lemShowCt;
-	private Power selectedPower;
 
 	public Level (File levelFile) throws InvalideFileException
 	{
@@ -124,17 +122,15 @@ public class Level implements Observable {
 
 	public void keyPressed (char keyCode) {
 		if (PowerSelector.isAPowerKey(keyCode))
-			this.selectedPower = PowerSelector.selectPower(keyCode);
+			info.setSelectedPower(PowerSelector.selectPower(keyCode));
 	}
 
 	public void mouseClicked (Position p) {
-		if (selectedPower != null) {
-			System.out.println(selectedPower.name() + ", " + p);
+		if (info.getSelectedPower() != null && info.selectedPowerCanBeUsed())
 			for (Lemming lem : lemmings)
 				if (lem.getPos().equals(p))
-					lem.changePower(selectedPower);
-		}
-
+					if (lem.changePower(info.getSelectedPower()))
+						info.usedPowerUp(info.getSelectedPower());
 	}
 
 	public void registerObserver (Observer levelObserver) {

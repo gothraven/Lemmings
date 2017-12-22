@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class GamePanel extends JComponent implements Observer {
 
 	public static final int SCALE = 25;
-	private static final int STATUS_HEIGHT = 30;
+	private static final int STATUS_HEIGHT = 210;
 
 	private long start;
 	private long targetTime;
@@ -47,7 +47,7 @@ public class GamePanel extends JComponent implements Observer {
 		requestFocus();
 		requestFocusInWindow();
 		this.lemmings = new ArrayList<>();
-		this.status = new GStatus();
+		this.status = new GStatus(new Position(20, height * SCALE + 20));
 		start = System.currentTimeMillis();
 		int FPS = 3;
 		targetTime = 1000 / FPS;
@@ -61,6 +61,8 @@ public class GamePanel extends JComponent implements Observer {
 			GMap.draw(map, g);
 
 		for (Lemming lemming : lemmings) GLemming.draw(lemming, g);
+
+		status.draw(g);
 	}
 
 	public void display() {
@@ -71,6 +73,7 @@ public class GamePanel extends JComponent implements Observer {
 		map = new Map(event.getMap());
 		lemmings.clear();
 		lemmings.addAll(event.getLemmings());
+		status.update(event.getLevelInfo());
 
 		long elapsed = System.currentTimeMillis() - start;
 		long wait =  targetTime - elapsed / 1000000;

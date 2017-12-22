@@ -3,6 +3,7 @@ package main.view.game;
 import main.module.event.game.GameEvent;
 import main.module.game.Game;
 import main.module.game.level.Level;
+import main.module.game.player.Player;
 import main.util.event.Event;
 import main.util.factory.EventFactory;
 import main.util.observebale.Observable;
@@ -46,6 +47,10 @@ public class GameFrame implements Observer {
 	}
 
 	public void end() {
+		String highScores = "";
+		for (Player player : game.getHallOfFame().getDatabase())
+			highScores += player.toString() + System.getProperty("line.separator");
+		JOptionPane.showMessageDialog(window, highScores, "High Scores", 1);
 		window.dispose();
 	}
 

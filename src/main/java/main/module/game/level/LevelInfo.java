@@ -1,6 +1,6 @@
 package main.module.game.level;
 
-import main.module.game.level.lemming.powertype.PowerType;
+import main.module.game.level.lemming.state.Power;
 import main.util.exceptions.InvalideFileException;
 
 import java.io.BufferedReader;
@@ -15,6 +15,7 @@ public class LevelInfo {
 	public static int GAME_SPEED_MIN = 1, GAME_SPEED_MAX = 10;
 
 	private int nbLemTotal, nbLemDead, nbLemSaved, nbLemToSave, nbLemInGame;
+
 	private int limShowSpeed, gameSpeed;
 
 	private int gameTime, timeToSave;
@@ -23,11 +24,13 @@ public class LevelInfo {
 
 	private boolean enPause;
 
-	private Map<PowerType, Integer> powerUps;
+	private Map<Power, Integer> powerUps;
+
+	private Power selectedPower;
 
 	LevelInfo (File file) throws InvalideFileException
 	{
-		this.powerUps = new TreeMap<>();
+		this.powerUps = new TreeMap<Power, Integer>();
 		this.enPause = false;
 		this.won = false;
 		this.nbLemTotal = 0;
@@ -39,6 +42,7 @@ public class LevelInfo {
 		this.timeToSave = 0;
 		this.limShowSpeed = LEM_SHOW_SPEED_MIN;
 		this.gameSpeed = GAME_SPEED_MIN;
+		this.selectedPower = null;
 		this.load_info(file);
 	}
 
@@ -66,25 +70,25 @@ public class LevelInfo {
 						this.nbLemToSave = Integer.parseInt(lineParts[1]);
 						break;
 					case "climber":
-						this.powerUps.put(PowerType.CLIMBER, Integer.parseInt(lineParts[1]));
+						this.powerUps.put(Power.CLIMBER, Integer.parseInt(lineParts[1]));
 						break;
 					case "paratrooper":
-						this.powerUps.put(PowerType.PARATROOPER, Integer.parseInt(lineParts[1]));
+						this.powerUps.put(Power.PARATROOPER, Integer.parseInt(lineParts[1]));
 						break;
 					case "blocker":
-						this.powerUps.put(PowerType.BLOCKER, Integer.parseInt(lineParts[1]));
+						this.powerUps.put(Power.BLOCKER, Integer.parseInt(lineParts[1]));
 						break;
 					case "bomber":
-						this.powerUps.put(PowerType.BOMBER, Integer.parseInt(lineParts[1]));
+						this.powerUps.put(Power.BOMBER, Integer.parseInt(lineParts[1]));
 						break;
 					case "builder":
-						this.powerUps.put(PowerType.BUILDER, Integer.parseInt(lineParts[1]));
+						this.powerUps.put(Power.BUILDER, Integer.parseInt(lineParts[1]));
 						break;
 					case "digger":
-						this.powerUps.put(PowerType.DIGGER, Integer.parseInt(lineParts[1]));
+						this.powerUps.put(Power.DIGGER, Integer.parseInt(lineParts[1]));
 						break;
 					case "miner":
-						this.powerUps.put(PowerType.MINER, Integer.parseInt(lineParts[1]));
+						this.powerUps.put(Power.MINER, Integer.parseInt(lineParts[1]));
 						break;
 				}
 				line = buff.readLine();
@@ -187,12 +191,8 @@ public class LevelInfo {
 		this.enPause = enPause;
 	}
 
-	public Map<PowerType, Integer> getPowerUps() {
+	public Map<Power, Integer> getPowerUps () {
 		return powerUps;
-	}
-
-	public void setPowerUps(Map<PowerType, Integer> powerUps) {
-		this.powerUps = powerUps;
 	}
 
 	public int getGameTime() {
@@ -215,6 +215,19 @@ public class LevelInfo {
 		this.won = won;
 	}
 
+	public void usedPowerUp (Power power) {
+		int currectNumber = this.powerUps.get(power);
+		this.powerUps.replace(power, currectNumber - 1);
+	}
+
+	public Power getSelectedPower () {
+		return selectedPower;
+	}
+
+	public void setSelectedPower (Power selectedPower) {
+		this.selectedPower = selectedPower;
+	}
+
 	@Override
 	public String toString() {
 		String result = "";
@@ -224,4 +237,7 @@ public class LevelInfo {
 		return result;
 	}
 
+	public boolean selectedPowerCanBeUsed () {
+		return powerUps.get(selectedPower) != 0;
+	}
 }
