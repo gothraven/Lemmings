@@ -41,19 +41,19 @@ public class Lemming {
 		this.power.action(this, map, lems);
 	}
 
-	public void changePower (Power power) {
+	public boolean changePower (Power power) {
 		//TODO implement the change
 		if (this.power == Power.BLOCKER & power == Power.BOMBER) {
 			this.power = power;
 			countStepAfterChangePower = 0 ;
-			return;
+			 return true;
 		}
 		if (this.power != Power.BLOCKER && this.power != Power.BOMBER) {
 			this.power = power;
 			countStepAfterChangePower = 0 ;
-			return;
+			return true;
 		}
-
+	return false;
 	}
 
 	public boolean isAlive () {
