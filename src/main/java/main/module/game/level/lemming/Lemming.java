@@ -57,38 +57,6 @@ public class Lemming {
 		return false;
 	}
 
-	public boolean isAlive () {
-		return alive;
-	}
-
-	public boolean isSaved () {
-		return saved;
-	}
-
-	public void kill () {
-		this.alive = false;
-	}
-
-	public void save () {
-		this.saved = true;
-	}
-
-	public boolean inGame () {
-		return (isAlive() && ! isSaved());
-	}
-
-	public Direction getDir () {
-		return dir;
-	}
-
-	public Position getPos () {
-		return pos;
-	}
-
-	public Power getPower () {
-		return power;
-	}
-
 	public boolean fall (Map map) {
 		Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(this.pos)));
 		if (t == null || t.getType().canBeIn()) {
@@ -106,6 +74,15 @@ public class Lemming {
 		if ((tDirection == null || tDirection.getType().canBeIn()) && blockerInTheWay(lems)) {
 			pos = dir.WhatIsNextPosition(pos);
 			fallingCounter = 0;
+			return true;
+		}
+		return false;
+	}
+
+	public boolean build (Map map) throws TileAlreadyExistsException {
+		Tile tDirection = map.getTileInThisDirection(pos, dir);
+		if (tDirection == null) {
+			map.addTile(new Position(dir.WhatIsNextPosition(pos)), TileType.BOX);
 			return true;
 		}
 		return false;
@@ -168,12 +145,37 @@ public class Lemming {
 		this.pos = pos;
 	}
 
-	public boolean build (Map map) throws TileAlreadyExistsException {
-		Tile tDirection = map.getTileInThisDirection(pos, dir);
-		if (tDirection == null) {
-			map.addTile(new Position(dir.WhatIsNextPosition(pos)), TileType.BOX);
-			return true;
-		}
-		return false;
+
+	public boolean isAlive () {
+		return alive;
 	}
+
+	public boolean isSaved () {
+		return saved;
+	}
+
+	public void kill () {
+		this.alive = false;
+	}
+
+	public void save () {
+		this.saved = true;
+	}
+
+	public boolean inGame () {
+		return (isAlive() && ! isSaved());
+	}
+
+	public Direction getDir () {
+		return dir;
+	}
+
+	public Position getPos () {
+		return pos;
+	}
+
+	public Power getPower () {
+		return power;
+	}
+
 }

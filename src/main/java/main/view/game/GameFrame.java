@@ -28,7 +28,7 @@ public class GameFrame implements Observer {
 
 	private void init() {
 		window.setLocationRelativeTo(null);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		window.setLocation(200, 100);
 		window.setResizable(false);
 		window.setVisible(true);
@@ -49,12 +49,13 @@ public class GameFrame implements Observer {
 
 	private void end () {
 		String message = "Your Score " + game.getPlayer().getScore();
-		JOptionPane.showMessageDialog(null, message, "Game Over", 1);
+		JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
 		String highScores = "";
 		Stack<Player> dataBase = game.getHallOfFame().getDatabase();
 		while (! dataBase.isEmpty())
 			highScores += dataBase.pop().toString() + System.getProperty("line.separator");
-		JOptionPane.showMessageDialog(null, highScores, "High Scores", 1);
+		JOptionPane.showMessageDialog(null, highScores, "High Scores", JOptionPane.INFORMATION_MESSAGE);
+		gameView = null;
 		window.dispose();
 	}
 
