@@ -3,6 +3,7 @@ package main.module.game.level.lemming.state;
 import main.module.game.level.lemming.Lemming;
 import main.module.game.level.map.Map;
 import main.module.game.level.map.Tile;
+import main.module.game.level.map.TileAction;
 import main.module.game.level.map.TileType;
 import main.util.exceptions.TileAlreadyExistsException;
 import main.util.geometry.Direction;
@@ -55,12 +56,8 @@ public enum Power implements PowerRules {
 			lem.oppositDirection();
 		}
 
-
 		private  void explode (Lemming lem , Map map ,ArrayList<Lemming> lems){
-
-			Power.BOMBER.action(lem, map, lems);
-
-
+			TileAction.BOMB.action(lem, map, lems);
 		}
 	},
 	BLOCKER {
