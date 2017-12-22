@@ -13,17 +13,13 @@ import java.util.TreeMap;
 
 public class LevelInfo {
 
-	public static int SPEED_SCALE = 1000, LEM_SHOW_SPEED_MAX = 1000, LEM_SHOW_SPEED_MIN = 1;
-
-	private static int GAME_SPEED_MIN = 1, GAME_SPEED_MAX = 10;
+	public static int SPEED_SCALE = 1000;
 
 	private int nbLemTotal, nbLemDead, nbLemSaved, nbLemToSave, nbLemInGame;
 
 	private int limShowSpeed, gameSpeed;
 
-	private int gameTime, timeToSave;
-
-	private boolean won;
+	private int gameTime;
 
 	private boolean inPause;
 
@@ -37,16 +33,14 @@ public class LevelInfo {
 	{
 		this.powerUps = new TreeMap<>();
 		this.inPause = false;
-		this.won = false;
 		this.nbLemTotal = 0;
 		this.nbLemDead = 0;
 		this.nbLemSaved = 0;
 		this.nbLemToSave = 0;
 		this.nbLemInGame = 0;
 		this.gameTime = 0;
-		this.timeToSave = 0;
-		this.limShowSpeed = LEM_SHOW_SPEED_MIN;
-		this.gameSpeed = GAME_SPEED_MIN;
+		this.limShowSpeed = 1;
+		this.gameSpeed = 1;
 		this.selectedPower = null;
 		this.load_info(file);
 	}
@@ -147,26 +141,8 @@ public class LevelInfo {
 		return limShowSpeed;
 	}
 
-	public void setLimShowSpeed(int limShowSpeed) {
-		if (limShowSpeed <= LEM_SHOW_SPEED_MIN)
-			this.limShowSpeed = LEM_SHOW_SPEED_MIN;
-		else if (limShowSpeed >= LEM_SHOW_SPEED_MAX)
-			this.limShowSpeed = LEM_SHOW_SPEED_MAX;
-		else
-			this.limShowSpeed = limShowSpeed;
-	}
-
 	public int getGameSpeed() {
 		return gameSpeed;
-	}
-
-	public void setGameSpeed(int gameSpeed) {
-		if(gameSpeed < GAME_SPEED_MIN)
-			this.gameSpeed = GAME_SPEED_MIN;
-		else if (gameSpeed > GAME_SPEED_MAX)
-			this.gameSpeed = GAME_SPEED_MAX;
-		else
-			this.gameSpeed = gameSpeed;
 	}
 
 	public boolean isInPause () {
@@ -187,10 +163,6 @@ public class LevelInfo {
 
 	public void setGameTime(int gameTime) {
 		this.gameTime = gameTime;
-	}
-
-	public void setWon(boolean won) {
-		this.won = won;
 	}
 
 	public void usedPowerUp (Power power) {

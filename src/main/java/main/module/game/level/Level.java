@@ -31,11 +31,6 @@ public class Level implements Observable {
 	private Timer timer;
 	private int lemShowSpeedCt, gameSpeedCt, lemShowCt;
 
-	public Level (File levelFile) throws InvalideFileException
-	{
-		this(null, levelFile);
-	}
-
 	public Level (Game game, File levelFIle) throws InvalideFileException {
 		this.game = game;
 		this.map = MapFactory.createMap(levelFIle);
@@ -51,7 +46,6 @@ public class Level implements Observable {
 				Timer time = (Timer) e.getSource();
 				time.restart();
 			} else {
-				Level.this.info.setWon(false);
 				this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), 0);
 				this.game.gameOver();
 			}
@@ -106,11 +100,9 @@ public class Level implements Observable {
 				if (this.lemShowCt == this.info.getNbLemTotal() & this.info.getNbLemInGame() == 0) {
 					if (info.getNbLemSaved() >= info.getNbLemToSave()) {
 						this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), this.info.getGameTime());
-						this.info.setWon(true);
 						this.game.nextLevel();
 					} else {
 						this.game.getPlayer().scoreUP(this.info.getNbLemSaved(), 0);
-						this.info.setWon(false);
 						this.game.gameOver();
 					}
 					return;
@@ -123,7 +115,7 @@ public class Level implements Observable {
 		}
 	}
 
-	public void pause () {
+	private void pause () {
 		if (info.isInPause())
 			info.setInPause(false);
 		else
@@ -159,32 +151,8 @@ public class Level implements Observable {
 			o.update(levelEvent);
 	}
 
-	public ArrayList<Lemming> getLemmings () {
-		return lemmings;
-	}
-
-	public int getGameSpeedCt () {
-		return gameSpeedCt;
-	}
-
-	public int getLemShowCt () {
-		return lemShowCt;
-	}
-
-	public int getLemShowSpeedCt () {
-		return lemShowSpeedCt;
-	}
-
-	public LevelInfo getInfo () {
-		return info;
-	}
-
 	public Map getMap () {
 		return map;
-	}
-
-	public Timer getTimer () {
-		return timer;
 	}
 
 	public Dimension getMapDimensions () {

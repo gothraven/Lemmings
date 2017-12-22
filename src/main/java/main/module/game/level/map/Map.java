@@ -181,12 +181,4 @@ public class Map {
 		this.map = map;
 	}
 
-	public String toString() {
-		StringBuilder result = new StringBuilder();
-		Set<Position> positions = this.map.keySet();
-		for (Position position : positions) {
-			result.append(position.toString() + " " + this.map.get(position).toString() +"\n");
-		}
-		return result.toString();
-	}
 }

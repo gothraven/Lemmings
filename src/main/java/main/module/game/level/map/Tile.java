@@ -15,7 +15,7 @@ public class Tile {
 		this(type, null);
 	}
 
-	public Tile(TileType type, Position position) {
+	Tile (TileType type, Position position) {
 		this.position = new Position(position);
 		this.type = type;
 		this.action = type.getAction();
@@ -23,12 +23,7 @@ public class Tile {
 
 	@Override
 	public boolean equals (Object obj) {
-		if (obj == null)
-			return false;
-		if (obj.getClass() != this.getClass()) {
-			return false;
-		}
-		return ((Tile)obj).type.equals(type);
+		return obj != null && obj.getClass() == this.getClass() && ((Tile) obj).type.equals(type);
 	}
 
 	public void action (Lemming lemming, Map map, ArrayList<Lemming> lems) {
@@ -45,18 +40,6 @@ public class Tile {
 
 	public void setPosition (Position position) {
 		this.position = position;
-	}
-
-	public void setType (TileType type) {
-		this.type = type;
-	}
-
-	public TileAction getAction () {
-		return action;
-	}
-
-	public void setAction (TileAction action) {
-		this.action = action;
 	}
 
 	@Override

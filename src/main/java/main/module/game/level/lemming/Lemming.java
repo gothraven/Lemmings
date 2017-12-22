@@ -11,7 +11,6 @@ import main.util.geometry.Position;
 import java.util.ArrayList;
 
 public class Lemming {
-	private static int MAX_HEIGHT = 5;
 	private Position pos;
 	private Direction dir;
 	private Power power;
@@ -62,6 +61,7 @@ public class Lemming {
 		if (t == null || t.getType().canBeIn()) {
 			pos = Direction.DOWN.WhatIsNextPosition(pos);
 			fallingCounter++;
+			int MAX_HEIGHT = 5;
 			if (fallingCounter > MAX_HEIGHT)
 				kill();
 			return true;
@@ -107,7 +107,6 @@ public class Lemming {
 	}
 
 	public boolean climb (Map map) {
-
 		Tile upperTile = map.getTile(Direction.UP.WhatIsNextPosition(pos));
 		if (upperTile == null || upperTile.getType() == TileType.EXIT) {
 			pos = Direction.UP.WhatIsNextPosition(pos);
@@ -116,13 +115,11 @@ public class Lemming {
 		return false;
 	}
 
-	public boolean fly (Map map) {
+	public void fly (Map map) {
 		Tile t = map.getTile(new Position(Direction.DOWN.WhatIsNextPosition(this.pos)));
 		if (t == null || t.getType().canBeIn()) {
 			pos = Direction.DOWN.WhatIsNextPosition(pos);
-			return true;
 		}
-		return false;
 	}
 
 	public void oppositDirection () {
