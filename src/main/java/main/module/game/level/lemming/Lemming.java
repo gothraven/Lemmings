@@ -117,10 +117,10 @@ public class Lemming {
 		return false;
 	}
 
-	public boolean jump (Map map) {
+	public boolean jump (Map map ,ArrayList<Lemming> lems) {
 		Tile upperNextTile = map.getTile(dir.upper().WhatIsNextPosition(pos));
 		Tile upperTile = map.getTile(Direction.UP.WhatIsNextPosition(pos));
-		if ((upperNextTile == null || upperNextTile.getType().canBeIn()) && upperTile == null) {
+		if (((upperNextTile == null || upperNextTile.getType().canBeIn()) && upperTile == null)&&  !blockerInTheWay(lems)) {
 			pos = dir.upper().WhatIsNextPosition(pos);
 			return true;
 		}

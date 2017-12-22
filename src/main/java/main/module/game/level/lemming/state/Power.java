@@ -14,8 +14,11 @@ import java.util.ArrayList;
 
 public enum Power implements PowerRules {
 	WALKER {
+		int a = 0;
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-
+			a++;
+			if (a==5)
+				lem.changePower(Power.BLOCKER);
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
@@ -25,7 +28,7 @@ public enum Power implements PowerRules {
 				return;
 			if (lem.walk(map, lems))
 				return;
-			if (lem.jump(map))
+			if (lem.jump(map,lems))
 				return;
 			lem.oppositDirection();
 		}
@@ -46,7 +49,7 @@ public enum Power implements PowerRules {
 				return;
 			if (lem.walk(map, lems))
 				return;
-			if (lem.jump(map))
+			if (lem.jump(map,lems))
 				return;
 			lem.oppositDirection();
 		}
@@ -81,7 +84,7 @@ public enum Power implements PowerRules {
 				lem.changePower(Power.WALKER);
 				return;
 			}
-			lem.jump(map);
+			lem.jump(map,lems);
 
 		}
 	},
@@ -99,7 +102,7 @@ public enum Power implements PowerRules {
 				lem.resetCountStepAfterChangePower();
 				return;
 			}
-			if (lem.jump(map))
+			if (lem.jump(map,lems))
 				return;
 			if(lem.climb(map)) {
 				lem.setCountStepAfterChangePower();
@@ -129,7 +132,7 @@ public enum Power implements PowerRules {
 				}
 				if (lem.walk(map, lems))
 					return;
-				if (lem.jump(map))
+				if (lem.jump(map,lems))
 					return;
 				lem.oppositDirection();
 			}else{
@@ -161,9 +164,6 @@ public enum Power implements PowerRules {
 					lem.setPos(t.getPosition());
 					lem.setCountStepAfterChangePower();
 				}else{
-					//lem.changePower(Power.WALKER);
-					System.out.println("ok");
-
 					return false;
 				}
 				return true;
@@ -184,7 +184,7 @@ public enum Power implements PowerRules {
 					return;
 				if(Miner(lem, map))
 					return;
-				if (lem.jump(map))
+				if (lem.jump(map,lems))
 					return;
 				lem.oppositDirection();
 			}else{
@@ -220,7 +220,7 @@ public enum Power implements PowerRules {
 				return;
 			if (lem.walk(map, lems))
 				return;
-			if (lem.jump(map))
+			if (lem.jump(map,lems))
 				return;
 			lem.oppositDirection();
 		}
