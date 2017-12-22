@@ -26,7 +26,7 @@ public class Lemming {
 	}
 
 	public Lemming (Position pos, Direction dir) {
-		this(pos, dir, Power.WALKER);
+		this(pos, dir, Power.DIGGER);
 	}
 
 	public Lemming (Position pos, Direction dir, Power power) {

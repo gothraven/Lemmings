@@ -14,11 +14,7 @@ import java.util.ArrayList;
 
 public enum Power implements PowerRules {
 	WALKER {
-		int a = 0;
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
-			a++;
-			if (a==5)
-				lem.changePower(Power.BLOCKER);
 			Tile tile = map.getTile(lem.getPos());
 			if (tile != null && tile.getType() !=  TileType.ENTER) {
 				tile.action(lem, map, lems);
@@ -34,7 +30,6 @@ public enum Power implements PowerRules {
 		}
 	},
 	BOMBER {
-
 		public void action (Lemming lem, Map map, ArrayList<Lemming> lems) {
 			lem.setCountStepAfterChangePower();
 			if (lem.getCountStepAfterChangePower() >=4) {
@@ -53,7 +48,6 @@ public enum Power implements PowerRules {
 				return;
 			lem.oppositDirection();
 		}
-
 		private  void explode (Lemming lem , Map map ,ArrayList<Lemming> lems){
 			TileAction.BOMB.action(lem, map, lems);
 		}
@@ -126,8 +120,8 @@ public enum Power implements PowerRules {
 
 				if (t.getType().isDestructible()){
 					lem.setCountStepAfterChangePower();
-					map.removeTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
-					lem.setPos(Direction.DOWN.WhatIsNextPosition(lem.getPos()));
+					map.removeTile(t.getPosition());
+					lem.setPos(t.getPosition());
 					return;
 				}
 				if (lem.walk(map, lems))
@@ -140,8 +134,8 @@ public enum Power implements PowerRules {
 				if(t!=null) {
 					if (t.getType().isDestructible()) {
 						lem.setCountStepAfterChangePower();
-						map.removeTile(new Position(Direction.DOWN.WhatIsNextPosition(lem.getPos())));
-						lem.setPos(Direction.DOWN.WhatIsNextPosition(lem.getPos()));
+						map.removeTile(t.getPosition());
+						lem.setPos(t.getPosition());
 					} else {
 						lem.changePower(Power.WALKER);
 					}
