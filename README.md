@@ -1,4 +1,5 @@
 # README #
+[![Build Status](https://travis-ci.org/gothraven/Lemmings.svg?branch=master)](https://travis-ci.org/gothraven/Lemmings)
 
 This game is a clone version of the original game called Lemmings, we hold no copyrights, and we never called the game ours,
 you can feel free to change add or anything you wish.
